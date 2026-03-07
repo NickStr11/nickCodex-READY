@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Start from the docs
+    url: https://github.com/NickStr11/nickCodex-READY/blob/main/README.md
+    about: Быстрый вход для человека.
+  - name: Root contract for agents
+    url: https://github.com/NickStr11/nickCodex-READY/blob/main/AGENTS.md
+    about: Канонический вход для Codex, Claude Code и других агентов.

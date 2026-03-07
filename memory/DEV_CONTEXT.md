@@ -12,13 +12,18 @@
 - Добавлен `inbox/` как входной слой с `inbox/now.md` и `inbox/backlog.md`.
 - Добавлены skills: `daily-session`, `handoff-session`, `capture-to-knowledge`.
 - Импортированы внешние skills для docs/research/frontend/TDD из `am-will/codex-skills`.
+- Репозиторий оформлен как нормальный git/GitHub-пакет с `LICENSE`, `.gitignore`, `.gitattributes`.
+- Добавлены `.github/workflows/validate-context-pack.yml`, issue templates, PR template и `CONTRIBUTING.md`.
+- Добавлен skill `repo-recon` для быстрого входа в новый кодбейс.
 
 ## Ближайший фокус
 
-- проверить новую петлю `daily-session -> work -> capture/handoff` на реальной работе
+- прогнать `repo-recon` на 2-3 реальных репозиториях
+- проверить, нужен ли следующий слой в виде `.claude/commands` или automation
 - развивать только те workflows, которые реально повторяются
 
 ## Known Issues
 
 - В пакете пока нет лёгкого operational-слоя уровня команд/автоматизаций.
+- `context7` по-прежнему требует `CONTEXT7_API_KEY`.
 - `.codex/config.toml` остаётся с консервативными portable-настройками.

@@ -1,0 +1,38 @@
+name: Project Intake
+description: Завести новый внешний проект или кодовую базу на разбор.
+title: "[intake] "
+labels:
+  - project-intake
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Используй этот шаблон, когда нужно быстро завести новый репо, локальный путь или кодовую базу в рабочий контур.
+  - type: input
+    id: target
+    attributes:
+      label: Цель
+      description: GitHub URL, owner/repo или локальный путь.
+      placeholder: https://github.com/org/repo
+    validations:
+      required: true
+  - type: textarea
+    id: mission
+    attributes:
+      label: Что нужно получить
+      description: Какой результат нужен после первичного разбора.
+      placeholder: Понять архитектуру, найти entrypoints, составить первый план атаки.
+    validations:
+      required: true
+  - type: textarea
+    id: constraints
+    attributes:
+      label: Ограничения
+      description: Время, стек, доступы, запреты, окружение.
+      placeholder: Без установки зависимостей, только чтение кода и команд.
+  - type: textarea
+    id: hotspots
+    attributes:
+      label: Подозрительные зоны
+      description: Что особенно важно проверить.
+      placeholder: auth, payments, migrations, flaky tests, runtime bugs

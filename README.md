@@ -1,5 +1,7 @@
 # nickCodex-READY
 
+[![Validate Context Pack](https://github.com/NickStr11/nickCodex-READY/actions/workflows/validate-context-pack.yml/badge.svg)](https://github.com/NickStr11/nickCodex-READY/actions/workflows/validate-context-pack.yml)
+
 Персональная ОС для работы с Codex, Claude Code и другими coding agents.
 
 Это не приложение и не фреймворк. Это переносимый context pack, в котором уже лежат:
@@ -28,6 +30,13 @@
 - `knowledge/` — холодный ресёрч-контекст
 - `runtime/` — импорты, выгрузки, scratch и временные файлы
 
+## Почему это уже не просто заметочник
+
+- есть CI, который валидирует структуру и ссылки на каждом `push` и `pull_request`
+- есть issue / PR templates под intake новых задач и развитие skills
+- есть `repo-recon` для быстрого входа в любой незнакомый репозиторий
+- есть `CONTRIBUTING.md`, чтобы operational-слой не расползался в бардак
+
 ## Базовый цикл
 
 1. Открыть папку в Codex или Claude Code.
@@ -35,6 +44,13 @@
 3. Для живой работы использовать `inbox/now.md` и `memory/DEV_CONTEXT.md`.
 4. Для повседневного цикла использовать skills:
    `daily-session` -> работа -> `capture-to-knowledge` -> `handoff-session`
+
+## Боевые навыки
+
+- `repo-recon` — быстрый вход в новый репо: стек, команды, entrypoints, hotspots
+- `read-github` — чтение и поиск по GitHub-репам
+- `context7` — свежая внешняя документация
+- `tdd-test-writer` — regression-first фиксы и RED-фаза TDD
 
 ## Quick Start
 
@@ -51,6 +67,8 @@ cd D:\path\to\nickCodex-READY
 ```powershell
 powershell -ExecutionPolicy Bypass -File scripts/validate-context-pack.ps1
 ```
+
+Для вклада в сам repo смотри [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Git Notes
 

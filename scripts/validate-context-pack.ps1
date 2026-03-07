@@ -10,6 +10,14 @@ $requiredPaths = @(
     'README.md',
     'PORTABLE-README.md',
     'LICENSE',
+    'CONTRIBUTING.md',
+    '.editorconfig',
+    '.github/AGENTS.md',
+    '.github/workflows/validate-context-pack.yml',
+    '.github/ISSUE_TEMPLATE/config.yml',
+    '.github/ISSUE_TEMPLATE/project-intake.yml',
+    '.github/ISSUE_TEMPLATE/skill-request.yml',
+    '.github/pull_request_template.md',
     '.codex/config.toml',
     'rules/AGENTS.md',
     'rules/agent-behavior.md',
@@ -152,6 +160,45 @@ foreach ($skillDir in $skillDirs) {
 
     if (-not (Test-Path -LiteralPath $skillUi)) {
         $errors.Add("Missing skill UI metadata: skills/$($skillDir.Name)/agents/openai.yaml")
+    }
+
+    if (Test-Path -LiteralPath $skillFile) {
+        $skillContent = Get-Content -LiteralPath $skillFile -Raw -Encoding utf8
+        $frontMatterMatch = [regex]::Match($skillContent, '(?s)^---\r?\n(.*?)\r?\n---')
+
+        if (-not $frontMatterMatch.Success) {
+            $errors.Add("Invalid skill front matter: skills/$($skillDir.Name)/SKILL.md")
+        }
+        else {
+            $frontMatter = $frontMatterMatch.Groups[1].Value
+            if ($frontMatter -notmatch '(?m)^name:\s*\S+') {
+                $errors.Add("Missing skill name in front matter: skills/$($skillDir.Name)/SKILL.md")
+            }
+
+            if ($frontMatter -notmatch '(?m)^description:\s*(\S+|[>|])') {
+                $errors.Add("Missing skill description in front matter: skills/$($skillDir.Name)/SKILL.md")
+            }
+        }
+    }
+
+    if (Test-Path -LiteralPath $skillUi) {
+        $uiContent = Get-Content -LiteralPath $skillUi -Raw -Encoding utf8
+
+        if ($uiContent -notmatch '(?m)^\s*interface:\s*$') {
+            $errors.Add("Missing interface block in skill UI metadata: skills/$($skillDir.Name)/agents/openai.yaml")
+        }
+
+        if ($uiContent -notmatch '(?m)^\s*display_name:\s*.+$') {
+            $errors.Add("Missing display_name in skill UI metadata: skills/$($skillDir.Name)/agents/openai.yaml")
+        }
+
+        if ($uiContent -notmatch '(?m)^\s*short_description:\s*.+$') {
+            $errors.Add("Missing short_description in skill UI metadata: skills/$($skillDir.Name)/agents/openai.yaml")
+        }
+
+        if ($uiContent -notmatch '(?m)^\s*default_prompt:\s*.+$') {
+            $errors.Add("Missing default_prompt in skill UI metadata: skills/$($skillDir.Name)/agents/openai.yaml")
+        }
     }
 }
 

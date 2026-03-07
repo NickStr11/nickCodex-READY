@@ -50,6 +50,8 @@
 - `AGENTS-HARD.md` — совместимый алиас, не второй источник истины
 - `CLAUDE.md` — совместимый алиас для Claude Code, не второй источник истины
 - `LICENSE` — лицензия репозитория
+- `CONTRIBUTING.md` — правила вклада и operational-гигиена
+- `.github/` — CI, issue templates и PR template
 - `.codex/config.toml` — project config для Codex
 - `rules/` — активные правила поведения, режима работы и качества кода
 - `skills/` — reusable workflows и форматы навыков
@@ -91,6 +93,7 @@
 ## Validation
 
 - После изменений в структуре или документации запускай `powershell -ExecutionPolicy Bypass -File scripts/validate-context-pack.ps1`.
+- На GitHub та же проверка должна проходить через `.github/workflows/validate-context-pack.yml`.
 - Если правка ломает ссылки или обязательные файлы, сначала фикс, потом финальный ответ.
 
 ## При ошибках и неясности

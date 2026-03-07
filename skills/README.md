@@ -26,21 +26,26 @@ skills/
 - `handoff-session` — короткий handoff в `memory/` и очистка текущего фокуса
 - `capture-to-knowledge` — раскладка полезных инсайтов по правильным долгоживущим файлам
 
-## Импортированные апгрейды
+## Боевой слой
 
+- `repo-recon` — быстрый вход в незнакомый репозиторий: стек, команды, entrypoints, hotspots и первый путь атаки
 - `planner` — планирование по явному запросу пользователя
 - `tdd-test-writer` — RED-фаза TDD и regression-first bugfix workflow
+- `read-github` — чтение GitHub-реп через `gitmcp.io`
+- `markdown-url` — чтение сайтов через markdown proxy
 - `context7` — свежая документация по внешним библиотекам
   - Нужен `CONTEXT7_API_KEY` в `skills/context7/.env` или в окружении
 - `openai-docs-skill` — официальная документация OpenAI через MCP shell-wrapper
   - Нужны `curl` и `jq`
-- `read-github` — чтение GitHub-реп через `gitmcp.io`
-- `markdown-url` — чтение сайтов через markdown proxy
+
+## Фронтенд-апгрейды
+
 - `frontend-design` — сильный визуальный фронтенд
 - `frontend-responsive-ui` — mobile-first и responsive quality bar
 - `vercel-react-best-practices` — performance-паттерны для React/Next.js
 
-Не тащили намеренно:
+## Намеренно не тащили
+
 - swarm / council / parallel orchestration
 - browser-automation внешними CLI
 - Gemini-зависимые штуки

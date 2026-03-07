@@ -1,0 +1,37 @@
+name: Skill Request
+description: Добавить или усилить reusable skill.
+title: "[skill] "
+labels:
+  - skill
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Этот шаблон для повторяемых workflows. Если задача разовая, не тащи её в `skills/`.
+  - type: input
+    id: trigger
+    attributes:
+      label: Когда должен триггериться навык
+      description: По каким словам, контексту или типу задачи.
+      placeholder: Когда пользователь даёт новый GitHub repo или просит быстро разобрать незнакомый кодбейс.
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Какой результат нужен
+      description: Что навык должен стабильно давать на выходе.
+      placeholder: Карту стека, команды, entrypoints, hotspots и первый путь атаки.
+    validations:
+      required: true
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Зависимости и ограничения
+      description: Внешние ключи, CLI, MCP, права, сети.
+      placeholder: Нужен gh auth, Context7 API key, браузерный доступ и т.п.
+  - type: textarea
+    id: notes
+    attributes:
+      label: Дополнительно
+      description: Ссылки, примеры, edge cases, нежелательное поведение.
