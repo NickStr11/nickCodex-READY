@@ -9,6 +9,7 @@ $requiredPaths = @(
     'CLAUDE.md',
     'README.md',
     'PORTABLE-README.md',
+    'LICENSE',
     '.codex/config.toml',
     'rules/AGENTS.md',
     'rules/agent-behavior.md',

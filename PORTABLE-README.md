@@ -1,19 +1,18 @@
-﻿# Portable AI Context Pack - HARD
+# Portable AI Context Pack
 
-Это жёсткий переносимый профиль для быстрого развёртывания на другом компьютере.
+Коротко: это переносимый personal context pack под coding agents.
 
-В этом пакете:
+В пакете:
 - `AGENTS.md` — канонический root contract
-- `CLAUDE.md` — алиас для Claude Code
-- `README.md` — краткий human quick start
-- локальные `AGENTS.md` в `rules/`, `skills/`, `knowledge/`, `memory/` и `runtime/`
-- `memory/` — живой слой проекта
-- `inbox/` — текущий фокус и входящие
+- `CLAUDE.md` — совместимый вход для Claude Code
+- `README.md` — human quick start
+- `memory/` — живая память проекта
+- `inbox/` — текущий фокус
 - `runtime/` — сырые рабочие артефакты
-- личный контекст, правила, знания и стиль письма лежат рядом
+- локальные `AGENTS.md` в рабочих подпапках
 
 Быстрый старт:
-1. Положить папку туда, где агент сможет её читать.
-2. Загружать сначала `AGENTS.md`.
-3. Остальные файлы подгружать по задаче.
-4. После структурных правок прогонять `scripts/validate-context-pack.ps1`.
+1. Положить папку туда, где агент может её читать.
+2. Открыть папку как workspace.
+3. Для агента загружать сначала `AGENTS.md`.
+4. После структурных правок гонять `scripts/validate-context-pack.ps1`.

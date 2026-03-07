@@ -49,6 +49,7 @@
 - `PORTABLE-README.md` — короткое описание portable-пакета
 - `AGENTS-HARD.md` — совместимый алиас, не второй источник истины
 - `CLAUDE.md` — совместимый алиас для Claude Code, не второй источник истины
+- `LICENSE` — лицензия репозитория
 - `.codex/config.toml` — project config для Codex
 - `rules/` — активные правила поведения, режима работы и качества кода
 - `skills/` — reusable workflows и форматы навыков

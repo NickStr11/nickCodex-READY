@@ -1,28 +1,68 @@
-﻿# Nikita Codex Ready
+# nickCodex-READY
 
-Переносимый context pack для Codex и других coding agents.
+Персональная ОС для работы с Codex, Claude Code и другими coding agents.
 
-`README.md` — quick start для человека.
-`AGENTS.md` — канонический контракт для агента.
+Это не приложение и не фреймворк. Это переносимый context pack, в котором уже лежат:
+- корневой контракт агента
+- живая память проекта
+- входящий слой с текущим фокусом
+- reusable skills
+- холодный knowledge-слой
+- runtime-папки для сырья и времянки
 
-Что делать на другом компьютере:
-1. Распаковать архив в любую папку.
-2. Открыть эту папку как рабочую директорию в Codex.
-3. Работать от корневого `AGENTS.md`.
+## Зачем это
 
-Внутри уже есть:
-- `AGENTS.md` — основной рабочий профиль
-- `AGENTS-HARD.md` — совместимый алиас на старое имя файла
-- `CLAUDE.md` — совместимый алиас для Claude Code
-- локальные `AGENTS.md` в `rules/`, `skills/`, `knowledge/`, `memory/`, `runtime/`, `inbox/`
+Пакет нужен, чтобы:
+- быстро поднимать рабочую агентную среду без долгой инициализации
+- держать личный и проектный контекст маленьким и разложенным по слоям
+- не смешивать жёсткие правила, личный профиль, текущий статус и мусорные артефакты
+
+## Что внутри
+
+- `AGENTS.md` — канонический root contract для агента
+- `CLAUDE.md` — совместимый вход для Claude Code
+- `rules/` — рабочие правила поведения и качества
 - `memory/` — живая память проекта
-- `inbox/` — текущий фокус и необработанные входящие
-- `runtime/` — рабочие импорты, выгрузки и scratch
-- `.codex/config.toml` — базовый project config для Codex
-- `aboutme.md`, `deep-values.md`, `deep-philosophy.md`, `writing-style.md`
-- `skills/` и `knowledge/`
+- `inbox/` — текущий фокус и входящие хвосты
+- `skills/` — reusable workflows и imported upgrades
+- `knowledge/` — холодный ресёрч-контекст
+- `runtime/` — импорты, выгрузки, scratch и временные файлы
 
-Ничего устанавливать не нужно.
+## Базовый цикл
 
-Проверка после структурных правок:
-- `powershell -ExecutionPolicy Bypass -File scripts/validate-context-pack.ps1`
+1. Открыть папку в Codex или Claude Code.
+2. Стартовать от `AGENTS.md`.
+3. Для живой работы использовать `inbox/now.md` и `memory/DEV_CONTEXT.md`.
+4. Для повседневного цикла использовать skills:
+   `daily-session` -> работа -> `capture-to-knowledge` -> `handoff-session`
+
+## Quick Start
+
+```powershell
+cd D:\path\to\nickCodex-READY
+```
+
+Дальше:
+- для человека точка входа здесь, в `README.md`
+- для агента точка входа в `AGENTS.md`
+
+Если менялась структура или документация:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/validate-context-pack.ps1
+```
+
+## Git Notes
+
+В репо уже настроено:
+- `.gitignore` для секретов и runtime-мусора
+- `.gitattributes` для нормализации текста
+
+В git не должны уходить:
+- `skills/**/.env`
+- payload из `runtime/`
+- локальная времянка
+
+## License
+
+[MIT](LICENSE)
