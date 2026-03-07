@@ -1,0 +1,4 @@
+interface:
+  display_name: "Context7 Docs"
+  short_description: "Fetch current library docs"
+  default_prompt: "Use $context7 to fetch current library documentation before coding against external dependencies."

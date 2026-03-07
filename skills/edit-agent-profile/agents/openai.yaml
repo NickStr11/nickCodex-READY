@@ -1,0 +1,4 @@
+interface:
+  display_name: "Edit Agent Profile"
+  short_description: "Place new preferences in the right files"
+  default_prompt: "Use $edit-agent-profile to fold new user preferences into AGENTS, rules, aboutme, or writing files without bloating the root contract."

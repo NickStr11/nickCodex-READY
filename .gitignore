@@ -1,0 +1,54 @@
+# OS noise
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Editor / temp
+*.tmp
+*.temp
+*.log
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+
+# Node
+node_modules/
+
+# Local secrets
+.env
+.env.*
+!.env.example
+skills/**/.env
+
+# Codex local state
+.codex/**
+!.codex/
+!.codex/config.toml
+
+# Runtime artifacts: keep structure docs, ignore payloads
+runtime/imports/**
+!runtime/imports/
+!runtime/imports/README.md
+!runtime/imports/youtube-raw/
+runtime/imports/youtube-raw/**
+!runtime/imports/youtube-raw/README.md
+
+runtime/outputs/**
+!runtime/outputs/
+!runtime/outputs/README.md
+
+runtime/research/**
+!runtime/research/
+!runtime/research/README.md
+
+runtime/scratch/**
+!runtime/scratch/
+!runtime/scratch/README.md

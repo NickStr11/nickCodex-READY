@@ -1,0 +1,17 @@
+﻿# Portable Codex project config for Nikita.
+# Unzip this folder anywhere and open it as the working directory.
+
+approval_policy = "on-request"
+sandbox_mode = "workspace-write"
+project_doc_max_bytes = 32768
+
+[features]
+powershell_utf8 = true
+request_rule = true
+multi_agent = false
+
+[sandbox_workspace_write]
+writable_roots = []
+network_access = false
+exclude_tmpdir_env_var = false
+exclude_slash_tmp = false

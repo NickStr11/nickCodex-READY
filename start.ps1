@@ -1,0 +1,6 @@
+Write-Host "Nikita Codex Ready"
+Write-Host "1. Open this folder in Codex or Claude Code"
+Write-Host "2. Start with AGENTS.md (or CLAUDE.md in Claude)"
+Write-Host "3. Load memory/PROJECT_CONTEXT.md if the task is about the live project"
+Write-Host "4. Check inbox/now.md before resuming work"
+Write-Host "5. Put raw exports and scratch files into runtime/"

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Vercel React Guide"
+  short_description: "Apply React and Next.js perf rules"
+  default_prompt: "Use $vercel-react-best-practices to apply Vercel's React and Next.js performance patterns while writing or reviewing code."

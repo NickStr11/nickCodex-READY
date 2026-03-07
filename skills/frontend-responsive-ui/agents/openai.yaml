@@ -1,0 +1,4 @@
+interface:
+  display_name: "Responsive UI"
+  short_description: "Keep layouts mobile-first"
+  default_prompt: "Use $frontend-responsive-ui to make a UI mobile-first, adaptive, and touch-friendly across breakpoints."

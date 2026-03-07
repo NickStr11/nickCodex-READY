@@ -1,0 +1,4 @@
+interface:
+  display_name: "TDD Test Writer"
+  short_description: "Write failing tests first"
+  default_prompt: "Use $tdd-test-writer to define behavior with failing tests before implementation."

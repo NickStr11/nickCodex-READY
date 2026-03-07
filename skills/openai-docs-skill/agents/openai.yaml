@@ -1,0 +1,4 @@
+interface:
+  display_name: "OpenAI Docs"
+  short_description: "Query official OpenAI docs"
+  default_prompt: "Use $openai-docs-skill to query current OpenAI developer documentation and cite the official page."

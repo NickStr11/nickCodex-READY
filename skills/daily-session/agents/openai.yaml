@@ -1,0 +1,4 @@
+interface:
+  display_name: "Daily Session"
+  short_description: "Start a focused work session"
+  default_prompt: "Use $daily-session to start a focused session, pick one active track, and update inbox/now.md."
