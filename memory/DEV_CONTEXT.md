@@ -15,12 +15,16 @@
 - Репозиторий оформлен как нормальный git/GitHub-пакет с `LICENSE`, `.gitignore`, `.gitattributes`.
 - Добавлены `.github/workflows/validate-context-pack.yml`, issue templates, PR template и `CONTRIBUTING.md`.
 - Добавлен skill `repo-recon` для быстрого входа в новый кодбейс.
+- Добавлены `PORTABILITY.md` и `DAILY.md` как короткие operational entrypoints.
+- Граница `memory/` vs `knowledge/` зафиксирована жёстче в README и AGENTS.
+- Валидатор усилен: теперь проверяет публичные слои, alias-файлы и обязательные входные документы.
 
 ## Ближайший фокус
 
 - прогнать `repo-recon` на 2-3 реальных репозиториях
 - проверить, нужен ли следующий слой в виде `.claude/commands` или automation
 - развивать только те workflows, которые реально повторяются
+- проверить, насколько `PORTABILITY.md` и `DAILY.md` реально сокращают вход в сессию и переезд на другой комп
 
 ## Known Issues
 

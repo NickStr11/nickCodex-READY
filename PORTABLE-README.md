@@ -6,6 +6,8 @@
 - `AGENTS.md` — канонический root contract
 - `CLAUDE.md` — совместимый вход для Claude Code
 - `README.md` — human quick start
+- `DAILY.md` — короткий daily flow
+- `PORTABILITY.md` — сценарий переезда на другой комп
 - `memory/` — живая память проекта
 - `inbox/` — текущий фокус
 - `runtime/` — сырые рабочие артефакты
@@ -15,4 +17,5 @@
 1. Положить папку туда, где агент может её читать.
 2. Открыть папку как workspace.
 3. Для агента загружать сначала `AGENTS.md`.
-4. После структурных правок гонять `scripts/validate-context-pack.ps1`.
+4. Для ежедневной работы держать рядом `DAILY.md`.
+5. После структурных правок гонять `scripts/validate-context-pack.ps1`.

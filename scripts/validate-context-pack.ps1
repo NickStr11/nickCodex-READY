@@ -9,6 +9,8 @@ $requiredPaths = @(
     'CLAUDE.md',
     'README.md',
     'PORTABLE-README.md',
+    'PORTABILITY.md',
+    'DAILY.md',
     'LICENSE',
     'CONTRIBUTING.md',
     '.editorconfig',
@@ -20,6 +22,7 @@ $requiredPaths = @(
     '.github/pull_request_template.md',
     '.codex/config.toml',
     'rules/AGENTS.md',
+    'rules/README.md',
     'rules/agent-behavior.md',
     'rules/work-style.md',
     'rules/code-style.md',
@@ -53,6 +56,44 @@ foreach ($path in $requiredPaths) {
     $fullPath = Join-Path $repoRoot $path
     if (-not (Test-Path -LiteralPath $fullPath)) {
         $errors.Add("Missing required path: $path")
+    }
+}
+
+$layerDirsRequiringAgents = @(
+    'rules',
+    'skills',
+    'knowledge',
+    'memory',
+    'inbox',
+    'runtime',
+    '.github'
+)
+
+foreach ($dir in $layerDirsRequiringAgents) {
+    $agentsPath = Join-Path $repoRoot (Join-Path $dir 'AGENTS.md')
+    if (-not (Test-Path -LiteralPath $agentsPath)) {
+        $errors.Add("Missing local AGENTS.md for layer: $dir/AGENTS.md")
+    }
+}
+
+$publicDirsRequiringReadme = @(
+    'rules',
+    'skills',
+    'knowledge',
+    'memory',
+    'inbox',
+    'runtime',
+    'runtime/imports',
+    'runtime/imports/youtube-raw',
+    'runtime/outputs',
+    'runtime/research',
+    'runtime/scratch'
+)
+
+foreach ($dir in $publicDirsRequiringReadme) {
+    $readmePath = Join-Path $repoRoot (Join-Path $dir 'README.md')
+    if (-not (Test-Path -LiteralPath $readmePath)) {
+        $errors.Add("Missing README for public layer: $dir/README.md")
     }
 }
 
@@ -148,6 +189,58 @@ function Test-LocalReference {
 
     return $false
 }
+
+function Test-ContentHasPatterns {
+    param(
+        [string]$RelativePath,
+        [string[]]$Patterns,
+        [string]$ErrorPrefix
+    )
+
+    $fullPath = Join-Path $repoRoot $RelativePath
+    if (-not (Test-Path -LiteralPath $fullPath)) {
+        return
+    }
+
+    $content = Get-Content -LiteralPath $fullPath -Raw -Encoding utf8
+    foreach ($pattern in $Patterns) {
+        if ($content -notmatch $pattern) {
+            $errors.Add("${ErrorPrefix}: $RelativePath")
+            break
+        }
+    }
+}
+
+function Test-AliasFile {
+    param(
+        [string]$RelativePath
+    )
+
+    $fullPath = Join-Path $repoRoot $RelativePath
+    if (-not (Test-Path -LiteralPath $fullPath)) {
+        return
+    }
+
+    $lines = Get-Content -LiteralPath $fullPath -Encoding utf8
+    $content = $lines -join "`n"
+
+    if ($lines.Count -gt 12) {
+        $errors.Add("Alias wrapper grew too large: $RelativePath")
+    }
+
+    if ($content -notmatch 'AGENTS\.md') {
+        $errors.Add("Alias wrapper must point to AGENTS.md: $RelativePath")
+    }
+
+    if ($content -notmatch 'второй источник истины') {
+        $errors.Add("Alias wrapper must forbid second source of truth: $RelativePath")
+    }
+}
+
+Test-ContentHasPatterns -RelativePath 'memory/README.md' -Patterns @('актив', 'времен') -ErrorPrefix 'Memory boundary is too vague'
+Test-ContentHasPatterns -RelativePath 'knowledge/README.md' -Patterns @('долговеч', 'переиспольз') -ErrorPrefix 'Knowledge boundary is too vague'
+Test-AliasFile -RelativePath 'CLAUDE.md'
+Test-AliasFile -RelativePath 'AGENTS-HARD.md'
 
 $skillDirs = Get-ChildItem -Path (Join-Path $repoRoot 'skills') -Directory -ErrorAction SilentlyContinue
 foreach ($skillDir in $skillDirs) {
