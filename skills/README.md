@@ -24,11 +24,13 @@ skills/
 - `edit-agent-profile` — раскладка новых инструкций по правильным profile-файлам
 - `daily-session` — старт или рестарт рабочей сессии через `memory/` и `inbox/`
 - `handoff-session` — короткий handoff в `memory/` и очистка текущего фокуса
+- `close-session` — один вход на конец сессии: handoff, backlog cleanup и capture если надо
 - `capture-to-knowledge` — раскладка полезных инсайтов по правильным долгоживущим файлам
 
 ## Боевой слой
 
 - `repo-recon` — быстрый вход в незнакомый репозиторий: стек, команды, entrypoints, hotspots и первый путь атаки
+- `video-analyzer` — разбор одного видео, пачки видео или канала/плейлиста с Google AI summary, ffmpeg whisper для локальных файлов и честным chapters fallback
 - `planner` — планирование по явному запросу пользователя
 - `tdd-test-writer` — RED-фаза TDD и regression-first bugfix workflow
 - `read-github` — чтение GitHub-реп через `gitmcp.io`

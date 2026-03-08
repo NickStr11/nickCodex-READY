@@ -1,0 +1,4 @@
+interface:
+  display_name: "Close Session"
+  short_description: "Close a session in one step"
+  default_prompt: "Use $close-session to wrap up work, update now/backlog, and preserve only the durable state."

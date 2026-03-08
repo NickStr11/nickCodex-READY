@@ -1,0 +1,4 @@
+interface:
+  display_name: "Video Analyzer"
+  short_description: "Summarize a video, many videos, or a channel"
+  default_prompt: "Use $video-analyzer to analyze this video, these videos, or this channel, save artifacts in the current project's runtime/research, and write a final summary.md."
