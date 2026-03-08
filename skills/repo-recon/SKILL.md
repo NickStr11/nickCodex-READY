@@ -24,12 +24,15 @@ Use this skill when:
    app boot, API/server bootstrap, frontend root, CLI `main`, test harness, workers, migrations, config loader.
 6. Build a heat map of risky or high-leverage zones:
    auth, payments, env/config, DB schema, jobs/queues, integrations, generated code, legacy glue.
-7. Tie the user request to the thinnest slice that matters now and start there instead of reading the whole repo.
-8. If the recon is substantial, leave a compressed note in `runtime/research/` using `references/recon-checklist.md` as the shape.
+7. If the system looks integration-heavy, stateful, file-driven, or dangerous to refactor blindly, map contracts before proposing changes:
+   who calls the API, who reads or writes shared files, what machines or services depend on paths, env vars, formats, queues, webhooks, or DB tables.
+8. Tie the user request to the thinnest slice that matters now and start there instead of reading the whole repo.
+9. If the recon is substantial, leave a compressed note in `runtime/research/` using `references/recon-checklist.md` as the shape.
 
 ## Output Rules
 
 - Return four compact blocks: stack, commands, entrypoints, hotspots.
+- If blind refactoring looks risky, add a fifth compact block: contracts.
 - Be explicit about unknowns and assumptions.
 - Prefer direct file refs and concrete commands over architecture poetry.
 - Do not over-scan the whole repo if the user already pointed at one feature or bug.
@@ -40,3 +43,4 @@ Use this skill when:
 ## Reference
 
 - Use `references/recon-checklist.md` as the default checklist and note shape.
+- Use `references/safety-map-checklist.md` when the repo has risky external couplings or refactor could break hidden consumers.

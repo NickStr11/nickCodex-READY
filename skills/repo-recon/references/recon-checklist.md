@@ -29,6 +29,16 @@
 - ...
 ```
 
+Если видна хрупкая внешняя сцепка, добавляй ещё один блок:
+
+```md
+## Contracts
+- callers / consumers
+- shared files and paths
+- env and config contracts
+- machine or service dependencies
+```
+
 ## Optional capture
 
 Если разбор заметно больше обычного ответа, клади сжатую заметку в:

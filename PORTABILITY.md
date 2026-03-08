@@ -16,6 +16,7 @@
 2. Открыть папку как workspace в Codex или Claude Code.
 3. Стартовать от `README.md` для человека и от `AGENTS.md` для агента.
 4. Для обычной сессии держать рядом `DAILY.md`.
-5. Прогнать `powershell -ExecutionPolicy Bypass -File scripts/validate-context-pack.ps1`.
+5. Прогнать `powershell -ExecutionPolicy Bypass -File scripts/bootstrap-portable.ps1`.
+6. Если менялась структура или документация, отдельно прогнать `powershell -ExecutionPolicy Bypass -File scripts/validate-context-pack.ps1`.
 
 Правило простое: долговечный контекст хранить внутри репозитория, а не в локальных папках пользователя.

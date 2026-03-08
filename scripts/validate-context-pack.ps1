@@ -47,6 +47,7 @@ $requiredPaths = @(
     'runtime/research/README.md',
     'runtime/scratch/README.md',
     'aboutme.md',
+    'scripts/bootstrap-portable.ps1',
     'scripts/validate-context-pack.ps1'
 )
 
@@ -239,6 +240,7 @@ function Test-AliasFile {
 
 Test-ContentHasPatterns -RelativePath 'memory/README.md' -Patterns @('актив', 'времен') -ErrorPrefix 'Memory boundary is too vague'
 Test-ContentHasPatterns -RelativePath 'knowledge/README.md' -Patterns @('долговеч', 'переиспольз') -ErrorPrefix 'Knowledge boundary is too vague'
+Test-ContentHasPatterns -RelativePath 'PORTABILITY.md' -Patterns @('bootstrap-portable\.ps1', 'validate-context-pack\.ps1') -ErrorPrefix 'Portability flow is incomplete'
 Test-AliasFile -RelativePath 'CLAUDE.md'
 Test-AliasFile -RelativePath 'AGENTS-HARD.md'
 
@@ -271,6 +273,10 @@ foreach ($skillDir in $skillDirs) {
             if ($frontMatter -notmatch '(?m)^description:\s*(\S+|[>|])') {
                 $errors.Add("Missing skill description in front matter: skills/$($skillDir.Name)/SKILL.md")
             }
+        }
+
+        if ($skillDir.Name -eq 'repo-recon' -and $skillContent -notmatch 'references/safety-map-checklist\.md') {
+            $errors.Add('repo-recon must reference safety-map-checklist.md')
         }
     }
 

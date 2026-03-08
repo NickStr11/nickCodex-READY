@@ -1,4 +1,4 @@
 interface:
   display_name: "Repo Recon"
   short_description: "Map an unfamiliar repository fast"
-  default_prompt: "Use $repo-recon to map a new repository, identify the stack, commands, entrypoints, and hotspots, then choose the thinnest attack path."
+  default_prompt: "Use $repo-recon to map a new repository, identify the stack, commands, entrypoints, hotspots, and risky external contracts when blind refactoring could break things, then choose the thinnest attack path."

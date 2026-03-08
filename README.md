@@ -68,6 +68,7 @@ cd D:\path\to\nickCodex-READY
 - для агента точка входа в `AGENTS.md`
 - для ежедневной работы без лишней навигации — `DAILY.md`
 - для переезда на другой комп — `PORTABILITY.md`
+- для быстрой проверки среды на новом компе — `powershell -ExecutionPolicy Bypass -File scripts/bootstrap-portable.ps1`
 
 Если менялась структура или документация:
 
