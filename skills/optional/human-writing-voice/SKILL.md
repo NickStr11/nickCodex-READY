@@ -7,7 +7,7 @@ description: "Rewrite and edit text so it sounds more lived-in, conversational, 
 
 ## Workflow
 
-1. If the task is voice-sensitive inside this repo, read [../../writing-style.md](../../writing-style.md). If the text is deeply personal, also read [../../aboutme.md](../../aboutme.md).
+1. If the task is voice-sensitive inside this repo, read [../../../writing-style.md](../../../writing-style.md). If the text is deeply personal, also read [../../../aboutme.md](../../../aboutme.md).
 2. Preserve the original core thought before touching style.
 3. Keep the text conversational:
    situation -> idea -> own take -> ending only if it naturally exists.

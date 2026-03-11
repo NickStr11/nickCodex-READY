@@ -35,14 +35,14 @@ This skill should trigger for requests like:
 
 - Default save path is project-local `runtime/research/`; do not write into the shared OS repo unless that repo is the active project.
 - Save:
-  - `manifest.json`
-  - `auth-check.json`
-  - `notebook.json`
-  - `sources.json`
-  - `answer.json` when `ask` ran
-  - `report.json` and `report-download.json` when report generation ran
-  - `summary.md`
-- In `summary.md`, state clearly:
+  - manifest.json
+  - auth-check.json
+  - notebook.json
+  - sources.json
+  - answer.json when `ask` ran
+  - report.json and report-download.json when report generation ran
+  - one final summary markdown file
+- In the final summary markdown file, state clearly:
   - notebook title and id
   - which sources were added
   - whether NotebookLM auth worked

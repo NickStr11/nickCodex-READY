@@ -15,19 +15,19 @@ description: |
 
 Retrieve current library documentation via Context7 API.
 
-IMPORTANT: Prefer `skills/context7/.env.example` as the template and copy it to a local `.env` if you want repo-local setup. Environment variables from the shell still work too.
+IMPORTANT: Prefer `skills/optional/context7/.env.example` as the template and copy it to a local `.env` if you want repo-local setup. Environment variables from the shell still work too.
 
 ## Workflow
 
 ### 1. Search for the library
 
 ```bash
-python skills/context7/scripts/context7.py search "<library-name>"
+python skills/optional/context7/scripts/context7.py search "<library-name>"
 ```
 
 Example:
 ```bash
-python skills/context7/scripts/context7.py search "next.js"
+python skills/optional/context7/scripts/context7.py search "next.js"
 ```
 
 Returns library metadata including the `id` field needed for step 2.
@@ -35,12 +35,12 @@ Returns library metadata including the `id` field needed for step 2.
 ### 2. Fetch documentation context
 
 ```bash
-python skills/context7/scripts/context7.py context "<library-id>" "<query>"
+python skills/optional/context7/scripts/context7.py context "<library-id>" "<query>"
 ```
 
 Example:
 ```bash
-python skills/context7/scripts/context7.py context "/vercel/next.js" "app router middleware"
+python skills/optional/context7/scripts/context7.py context "/vercel/next.js" "app router middleware"
 ```
 
 Options:
