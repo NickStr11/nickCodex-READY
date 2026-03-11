@@ -11,7 +11,7 @@
 - Маленькая и понятная правка под одну цель.
 - Короткие, сканируемые документы вместо простыней.
 - Новый skill только если workflow реально повторился хотя бы 2-3 раза.
-- Для каждого нового skill обязательны `skills/*/SKILL.md` и `skills/*/agents/openai.yaml`.
+- Для каждого нового skill обязательны `skills/core/*/SKILL.md` или `skills/optional/*/SKILL.md`, плюс рядом `agents/openai.yaml`.
 
 ## Границы слоёв
 
@@ -43,4 +43,4 @@ GitHub Actions в [`.github/workflows/validate-context-pack.yml`](.github/workfl
 - Один PR = одна внятная цель.
 - Если переносишь или переименовываешь файлы, сразу почини ссылки.
 - Если меняешь operational-слой в `.github/`, держи его без привязки к локальной машине.
-- Если правка меняет живой статус репо, обнови `memory/DEV_CONTEXT.md`.
+- Если правка меняет живой статус repo, обнови `memory/DEV_CONTEXT.md`.

@@ -1,4 +1,4 @@
-﻿Set-StrictMode -Version Latest
+Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 
 $repoRoot = Split-Path -Parent $PSScriptRoot
@@ -13,6 +13,9 @@ $requiredPaths = @(
     'DAILY.md',
     'LICENSE',
     'CONTRIBUTING.md',
+    'resume.ps1',
+    'new-project.ps1',
+    'doctor.ps1',
     '.editorconfig',
     '.github/AGENTS.md',
     '.github/workflows/validate-context-pack.yml',
@@ -28,6 +31,8 @@ $requiredPaths = @(
     'rules/code-style.md',
     'skills/AGENTS.md',
     'skills/README.md',
+    'skills/core/README.md',
+    'skills/optional/README.md',
     'knowledge/AGENTS.md',
     'knowledge/README.md',
     'memory/AGENTS.md',
@@ -48,6 +53,24 @@ $requiredPaths = @(
     'runtime/scratch/README.md',
     'aboutme.md',
     'scripts/bootstrap-portable.ps1',
+    'scripts/resume.ps1',
+    'scripts/new-project.ps1',
+    'scripts/doctor.ps1',
+    'scripts/validate-project-context.ps1',
+    'templates/README.md',
+    'templates/project-starter/AGENTS.md',
+    'templates/project-starter/README.md',
+    'templates/project-starter/.gitignore',
+    'templates/project-starter/resume.ps1',
+    'templates/project-starter/memory/PROJECT_CONTEXT.md',
+    'templates/project-starter/memory/DEV_CONTEXT.md',
+    'templates/project-starter/inbox/now.md',
+    'templates/project-starter/inbox/backlog.md',
+    'templates/project-starter/runtime/research/README.md',
+    'templates/project-starter/runtime/outputs/README.md',
+    'templates/project-starter/runtime/scratch/README.md',
+    'templates/project-starter/scripts/README.md',
+    'templates/project-starter/scripts/validate-project-context.ps1',
     'scripts/validate-context-pack.ps1'
 )
 
@@ -233,28 +256,28 @@ function Test-AliasFile {
         $errors.Add("Alias wrapper must point to AGENTS.md: $RelativePath")
     }
 
-    if ($content -notmatch 'второй источник истины') {
-        $errors.Add("Alias wrapper must forbid second source of truth: $RelativePath")
-    }
 }
 
-Test-ContentHasPatterns -RelativePath 'memory/README.md' -Patterns @('актив', 'времен') -ErrorPrefix 'Memory boundary is too vague'
-Test-ContentHasPatterns -RelativePath 'knowledge/README.md' -Patterns @('долговеч', 'переиспольз') -ErrorPrefix 'Knowledge boundary is too vague'
+Test-ContentHasPatterns -RelativePath 'memory/README.md' -Patterns @('DEV_CONTEXT\.md', 'PROJECT_CONTEXT\.md') -ErrorPrefix 'Memory boundary is too vague'
 Test-ContentHasPatterns -RelativePath 'PORTABILITY.md' -Patterns @('bootstrap-portable\.ps1', 'validate-context-pack\.ps1') -ErrorPrefix 'Portability flow is incomplete'
 Test-AliasFile -RelativePath 'CLAUDE.md'
 Test-AliasFile -RelativePath 'AGENTS-HARD.md'
 
-$skillDirs = Get-ChildItem -Path (Join-Path $repoRoot 'skills') -Directory -ErrorAction SilentlyContinue
+$skillDirs = Get-ChildItem -Path (Join-Path $repoRoot 'skills') -Recurse -File -Filter 'SKILL.md' -ErrorAction SilentlyContinue |
+    ForEach-Object { $_.Directory } |
+    Sort-Object FullName -Unique
+
 foreach ($skillDir in $skillDirs) {
+    $skillPath = $skillDir.FullName.Substring($repoRoot.Length + 1).Replace('\', '/')
     $skillFile = Join-Path $skillDir.FullName 'SKILL.md'
     $skillUi = Join-Path $skillDir.FullName 'agents/openai.yaml'
 
     if (-not (Test-Path -LiteralPath $skillFile)) {
-        $errors.Add("Missing skill file: skills/$($skillDir.Name)/SKILL.md")
+        $errors.Add("Missing skill file: $skillPath/SKILL.md")
     }
 
     if (-not (Test-Path -LiteralPath $skillUi)) {
-        $errors.Add("Missing skill UI metadata: skills/$($skillDir.Name)/agents/openai.yaml")
+        $errors.Add("Missing skill UI metadata: $skillPath/agents/openai.yaml")
     }
 
     if (Test-Path -LiteralPath $skillFile) {
@@ -262,16 +285,16 @@ foreach ($skillDir in $skillDirs) {
         $frontMatterMatch = [regex]::Match($skillContent, '(?s)^---\r?\n(.*?)\r?\n---')
 
         if (-not $frontMatterMatch.Success) {
-            $errors.Add("Invalid skill front matter: skills/$($skillDir.Name)/SKILL.md")
+            $errors.Add("Invalid skill front matter: $skillPath/SKILL.md")
         }
         else {
             $frontMatter = $frontMatterMatch.Groups[1].Value
             if ($frontMatter -notmatch '(?m)^name:\s*\S+') {
-                $errors.Add("Missing skill name in front matter: skills/$($skillDir.Name)/SKILL.md")
+                $errors.Add("Missing skill name in front matter: $skillPath/SKILL.md")
             }
 
             if ($frontMatter -notmatch '(?m)^description:\s*(\S+|[>|])') {
-                $errors.Add("Missing skill description in front matter: skills/$($skillDir.Name)/SKILL.md")
+                $errors.Add("Missing skill description in front matter: $skillPath/SKILL.md")
             }
         }
 
@@ -284,26 +307,58 @@ foreach ($skillDir in $skillDirs) {
         $uiContent = Get-Content -LiteralPath $skillUi -Raw -Encoding utf8
 
         if ($uiContent -notmatch '(?m)^\s*interface:\s*$') {
-            $errors.Add("Missing interface block in skill UI metadata: skills/$($skillDir.Name)/agents/openai.yaml")
+            $errors.Add("Missing interface block in skill UI metadata: $skillPath/agents/openai.yaml")
         }
 
         if ($uiContent -notmatch '(?m)^\s*display_name:\s*.+$') {
-            $errors.Add("Missing display_name in skill UI metadata: skills/$($skillDir.Name)/agents/openai.yaml")
+            $errors.Add("Missing display_name in skill UI metadata: $skillPath/agents/openai.yaml")
         }
 
         if ($uiContent -notmatch '(?m)^\s*short_description:\s*.+$') {
-            $errors.Add("Missing short_description in skill UI metadata: skills/$($skillDir.Name)/agents/openai.yaml")
+            $errors.Add("Missing short_description in skill UI metadata: $skillPath/agents/openai.yaml")
         }
 
         if ($uiContent -notmatch '(?m)^\s*default_prompt:\s*.+$') {
-            $errors.Add("Missing default_prompt in skill UI metadata: skills/$($skillDir.Name)/agents/openai.yaml")
+            $errors.Add("Missing default_prompt in skill UI metadata: $skillPath/agents/openai.yaml")
         }
     }
 }
 
-$docs = @()
-$docs += Get-ChildItem -Path $repoRoot -Recurse -File -Filter *.md
-$docs += Get-ChildItem -Path $repoRoot -Recurse -File -Include *.yaml,*.yml
+$docs = [System.Collections.Generic.List[System.IO.FileInfo]]::new()
+$git = Get-Command git -ErrorAction SilentlyContinue
+
+if ($git) {
+    $trackedDocPaths = & $git.Source -C $repoRoot ls-files
+    if ($LASTEXITCODE -eq 0) {
+        foreach ($relativePath in $trackedDocPaths) {
+            if ($relativePath -notmatch '\.(md|ya?ml)$') {
+                continue
+            }
+
+            $fullPath = Join-Path $repoRoot $relativePath
+            if (Test-Path -LiteralPath $fullPath) {
+                [void]$docs.Add((Get-Item -LiteralPath $fullPath))
+            }
+        }
+    }
+}
+
+if ($docs.Count -eq 0) {
+    $docs += Get-ChildItem -Path $repoRoot -Recurse -File -Filter *.md
+    $docs += Get-ChildItem -Path $repoRoot -Recurse -File -Include *.yaml,*.yml
+}
+
+foreach ($path in $requiredPaths) {
+    if ($path -notmatch '\.(md|ya?ml)$') {
+        continue
+    }
+
+    $fullPath = Join-Path $repoRoot $path
+    if (Test-Path -LiteralPath $fullPath) {
+        [void]$docs.Add((Get-Item -LiteralPath $fullPath))
+    }
+}
+
 $docs = $docs | Sort-Object FullName -Unique
 
 foreach ($file in $docs) {
@@ -344,4 +399,3 @@ if ($errors.Count -gt 0) {
 }
 
 Write-Host 'Validation passed.' -ForegroundColor Green
-

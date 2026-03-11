@@ -1,24 +1,36 @@
 # Skills
 
-Навыки лежат папками, не одиночными файлами.
+Навыки лежат leaf-папками со skill file вроде `core/*/SKILL.md` или `optional/*/SKILL.md`.
 
-Формат:
+Текущая раскладка:
 
 ```text
 skills/
-  skill-name/
-    SKILL.md
-    agents/openai.yaml
-    references/
-    scripts/
-    assets/
+  core/
+    skill-name/
+      SKILL.md
+      agents/openai.yaml
+      references/
+      scripts/
+      assets/
+  optional/
+    skill-name/
+      SKILL.md
+      agents/openai.yaml
+      references/
+      scripts/
+      assets/
 ```
 
-Минимум для рабочего skill:
-- `SKILL.md`
-- `agents/openai.yaml`
+`core/` — минимальный OS-слой, который держит сам pack в рабочем состоянии.
 
-## Ядро персональной ОС
+`optional/` — боевые и внешние навыки. Они reusable, но не обязательны для каждого нового проекта.
+
+Минимум для рабочего skill:
+- `core/*/SKILL.md` или `optional/*/SKILL.md`
+- `core/*/agents/openai.yaml` или `optional/*/agents/openai.yaml`
+
+## Core
 
 - `maintain-context-pack` — правка и валидация portable context pack
 - `edit-agent-profile` — раскладка новых инструкций по правильным profile-файлам
@@ -26,36 +38,33 @@ skills/
 - `handoff-session` — короткий handoff в `memory/` и очистка текущего фокуса
 - `close-session` — один вход на конец сессии: handoff, backlog cleanup и capture если надо
 - `capture-to-knowledge` — раскладка полезных инсайтов по правильным долгоживущим файлам
-
-## Боевой слой
-
 - `repo-recon` — быстрый вход в незнакомый репозиторий: стек, команды, entrypoints, hotspots и первый путь атаки
-- `video-analyzer` — разбор одного видео, пачки видео или канала/плейлиста с Google AI summary, ffmpeg whisper для локальных файлов и честным chapters fallback
+
+## Optional
+
+- `video-analyzer` — разбор одного видео, пачки видео или канала/плейлиста
+- `notebooklm-research` — deep research через Google NotebookLM CLI
 - `planner` — планирование по явному запросу пользователя
 - `tdd-test-writer` — RED-фаза TDD и regression-first bugfix workflow
 - `read-github` — чтение GitHub-реп через `gitmcp.io`
 - `markdown-url` — чтение сайтов через markdown proxy
 - `context7` — свежая документация по внешним библиотекам
-  - Нужен `CONTEXT7_API_KEY` в `skills/context7/.env` или в окружении
-- `openai-docs-skill` — официальная документация OpenAI через MCP shell-wrapper
-  - Нужны `curl` и `jq`
-
-## Фронтенд-апгрейды
-
+- `openai-docs-skill` — официальная документация OpenAI через shell-wrapper
+- `human-writing-voice` — перепись текста в более живой и менее AI-вылизанный голос
 - `frontend-design` — сильный визуальный фронтенд
 - `frontend-responsive-ui` — mobile-first и responsive quality bar
 - `vercel-react-best-practices` — performance-паттерны для React/Next.js
+
+## Правило против расползания
+
+- В `skills/` остаются только reusable workflows.
+- Project-specific навыки не живут тут: им место в project repo или в `runtime/scratch/`.
+- Если новый навык не нужен минимум в двух разных задачах, не тащи его в этот слой.
 
 ## Намеренно не тащили
 
 - swarm / council / parallel orchestration
 - browser-automation внешними CLI
-- Gemini-зависимые штуки
+- завязку на отдельный marketplace ради самого marketplace
 
-## Когда добавлять новый skill
-
-- Не добавлять новый skill под разовый кейс.
-- Сначала проверить, что workflow реально повторился хотя бы 2-3 раза.
-- Если повторяемости пока нет, лучше оставить это в `memory/`, `knowledge/` или обычной рабочей заметке.
-
-Можно симлинкить папки skill'ов в `~/.claude/skills/`, если нужен reuse в Claude Code.
+Если нужен reuse в Claude Code, можно симлинкать leaf-папки skill'ов в `~/.claude/skills/`.

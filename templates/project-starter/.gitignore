@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Node
+node_modules/
+
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Runtime payloads
+runtime/research/**
+!runtime/research/
+!runtime/research/README.md
+
+runtime/outputs/**
+!runtime/outputs/
+!runtime/outputs/README.md
+
+runtime/scratch/**
+!runtime/scratch/
+!runtime/scratch/README.md

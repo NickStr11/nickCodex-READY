@@ -33,6 +33,14 @@
 - `skills/` — reusable workflows и imported upgrades
 - `knowledge/` — долговечные и переиспользуемые заметки
 - `runtime/` — импорты, выгрузки, scratch и временные файлы
+- `templates/` — starter-шаблоны для новых project-local repo
+
+## Operational Shell
+
+- `.\resume.ps1` — печатает готовый prompt для входа в текущий проект
+- `.\new-project.ps1 <name>` — создаёт новый project-local repo рядом с этим pack
+- `.\doctor.ps1` — проверяет tooling, env и минимальный project-local context
+- `powershell -ExecutionPolicy Bypass -File scripts/validate-project-context.ps1 -TargetPath <path>` — валидирует project-local scaffold
 
 ## Почему это уже не просто заметочник
 

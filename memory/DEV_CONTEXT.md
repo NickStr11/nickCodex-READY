@@ -2,35 +2,43 @@
 
 ## Последнее обновление
 
-- Дата: 2026-03-07
+- Дата: 2026-03-11
 
 ## Текущий статус
 
-- Добавлены `memory/` и `runtime/` как рабочие слои.
-- Из корня вынесены сырые youtube-артефакты в `runtime/imports/youtube-raw/`.
-- Добавлен `CLAUDE.md` как совместимый алиас без второго источника истины.
-- Добавлен `inbox/` как входной слой с `inbox/now.md` и `inbox/backlog.md`.
-- Добавлены skills: `daily-session`, `handoff-session`, `capture-to-knowledge`.
-- Импортированы внешние skills для docs/research/frontend/TDD из `am-will/codex-skills`.
-- Репозиторий оформлен как нормальный git/GitHub-пакет с `LICENSE`, `.gitignore`, `.gitattributes`.
-- Добавлены `.github/workflows/validate-context-pack.yml`, issue templates, PR template и `CONTRIBUTING.md`.
-- Добавлен skill `repo-recon` для быстрого входа в новый кодбейс.
-- Добавлены `PORTABILITY.md` и `DAILY.md` как короткие operational entrypoints.
-- Граница `memory/` vs `knowledge/` зафиксирована жёстче в README и AGENTS.
-- Валидатор усилен: теперь проверяет публичные слои, alias-файлы и обязательные входные документы.
-- Добавлен `scripts/bootstrap-portable.ps1` для быстрого старта на новом компе.
-- `repo-recon` усилен safety-map шагом для хрупких систем и опасных рефакторингов.
+- Репо уже оформлено как нормальный portable context pack: `memory/`, `runtime/`, `inbox/`, `CLAUDE.md`, CI, issue templates, PR template, `LICENSE`, `.gitignore`, `.gitattributes`.
+- Добавлены короткие operational entrypoints `PORTABILITY.md` и `DAILY.md`.
+- Добавлен `scripts/bootstrap-portable.ps1` для быстрого старта на новой машине.
+- Добавлен operational shell:
+  - `resume.ps1`
+  - `new-project.ps1`
+  - `doctor.ps1`
+  - `scripts/validate-project-context.ps1`
+- Добавлен starter scaffold в `templates/project-starter/`.
+- Добавлен `repo-recon` и усилен safety-map шагом для хрупких систем и опасных рефакторингов.
+- Добавлен `notebooklm-research` с реальным adapter script и живым smoke test через `notebooklm` CLI.
+- Pack validator усилен: теперь проверяет публичные слои, alias-файлы, bootstrap-путь, nested skills и safety-map для `repo-recon`.
+- `skills/` разрезан на `core/` и `optional/`, чтобы OS-слой и боевые интеграции не жили вперемешку.
+
+## Что выяснилось
+
+- Структура repo ещё держится, но drift начинается не по схеме, а по дисциплине.
+- В корень начинают лезть task-specific артефакты и experiment files, если не чистить их сразу.
+- `inbox/now.md` и memory быстро отстают от реального состояния repo, если не синхронизировать их после структурных правок.
+- В `skills/` легко начинают появляться project-specific хвосты, если не держать reusable bar жёстко.
 
 ## Ближайший фокус
 
-- прогнать `repo-recon` на 2-3 реальных репозиториях
-- проверить, нужен ли следующий слой в виде `.claude/commands` или automation
-- развивать только те workflows, которые реально повторяются
-- проверить, насколько `PORTABILITY.md` и `DAILY.md` реально сокращают вход в сессию и переезд на другой комп
-- проверить, какие tool-checks в `scripts/bootstrap-portable.ps1` реально полезны, а какие стоит выбросить
+- Держать корень каноническим входом, а не рабочим столом.
+- Держать `skills/` только для реально reusable workflows.
+- Pressure-test'нуть `repo-recon`, `notebooklm-research` и `video-analyzer` на живых задачах, а не только на smoke test.
+- Развивать только те слои, которые реально сокращают ручную рутину.
 
 ## Known Issues
 
-- В пакете пока нет лёгкого operational-слоя уровня команд/автоматизаций.
-- `context7` по-прежнему требует `CONTEXT7_API_KEY`.
-- `.codex/config.toml` остаётся с консервативными portable-настройками.
+- Часть старых markdown-файлов по-прежнему отображается в shell с mojibake из-за кодировки консоли, хотя сами файлы живы.
+- Рядом с repo уже накопились test project folders от smoke test, их лучше разобрать отдельно от этого cleanup.
+
+## Next Step
+
+- После cleanup добить реальные боевые прогоны для `repo-recon`, `notebooklm-research` и `video-analyzer`, а потом уже решать, нужен ли следующий слой automation/commands.

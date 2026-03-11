@@ -58,12 +58,16 @@
 - `CONTRIBUTING.md` — правила вклада и operational-гигиена
 - `.github/` — CI, issue templates и PR template
 - `.codex/config.toml` — project config для Codex
+- `resume.ps1` — быстрый вход в текущий project-local repo
+- `new-project.ps1` — bootstrap нового project-local repo рядом с этим pack
+- `doctor.ps1` — проверка tooling, env и минимального project-local context
 - `rules/` — активные правила поведения, режима работы и качества кода
 - `skills/` — reusable workflows и форматы навыков
 - `knowledge/` — холодный, долговечный и переиспользуемый слой
 - `memory/` — активная и временная память проекта: цель, текущий статус, последние сессии
 - `inbox/` — входящий слой и текущий фокус
 - `runtime/` — сырые импорты, выгрузки, research-output и временные артефакты
+- `templates/` — starter-шаблоны для новых project-local repo
 - `scripts/validate-context-pack.ps1` — проверка структуры и ссылок
 - `scripts/bootstrap-portable.ps1` — быстрая проверка переносимости и доступных инструментов
 

@@ -3,36 +3,39 @@
 ## Проект
 
 - Название: `nickCodex-READY`
-- Тип: переносимый agent context pack
-- Цель: дать Никите рабочую агентную среду без долгой инициализации и быстро входить в любые внешние кодовые базы
+- Тип: переносимый agent context pack / personal OS repo
+- Цель: дать Никите рабочую агентную среду, которая быстро поднимается, помогает заходить в новые проекты и не требует каждый раз ручной инициализации
 
 ## Что уже есть
 
 - root contract через `AGENTS.md`
-- раздельные слои `rules/`, `skills/`, `knowledge/`
-- входящий слой `inbox/`
+- слои `rules/`, `skills/`, `knowledge/`, `memory/`, `inbox/`, `runtime/`
+- разделение `skills/core/` и `skills/optional/` вместо одного плоского skill-склада
 - личный профиль в `aboutme.md` и глубокие контекстные файлы рядом
-- operational-слой через `.github/`, `CONTRIBUTING.md` и валидацию
-- боевой skill `repo-recon` для быстрого входа в незнакомые репозитории
-- `scripts/bootstrap-portable.ps1` для проверки готовности среды на новом компе
+- operational shell: `resume.ps1`, `new-project.ps1`, `doctor.ps1`
+- project starter layer через `templates/project-starter/`
+- structural validation через `scripts/validate-context-pack.ps1` и `scripts/validate-project-context.ps1`
+- короткие operational entrypoints `PORTABILITY.md` и `DAILY.md`
+- `scripts/bootstrap-portable.ps1` для быстрого старта на новом компе
+- боевые skills для repo входа, research, docs, TDD, video analysis и NotebookLM-backed research
 - safety-map check внутри `repo-recon` для хрупких и интеграционно тяжёлых систем
 
 ## Текущий фокус
 
-- держать пакет не просто переносимым, а боевым для любого нового проекта
-- опираться на reusable workflows вместо ручной импровизации с нуля
-- сохранять корень чистым и не превращать operational-слой в бюрократию
+- держать repo боевым, но не дать ему начать жить как свалка operational-хвостов
+- усиливать только те workflows, которые реально повторяются в живой работе
+- отделять reusable OS-слой от project-specific и экспериментального мусора
 
 ## Ограничения
 
-- это не приложение и не монорепа с тяжёлой инфраструктурой
-- один источник истины лучше нескольких совместимых, но разъехавшихся файлов
-- активный контекст должен оставаться маленьким
+- это не продуктовый монорепо и не execution-lab уровня `cortex`
+- active context должен оставаться маленьким и честным
+- skill-слой не должен превращаться в склад одноразовых project-specific заготовок
+- runtime должен поглощать времянку, а не root
 
 ## Следующие шаги
 
-- pressure-test `repo-recon` на реальных внешних репозиториях
-- развивать `skills/` только под реально повторяемые workflows
-- при необходимости добавить automation/commands слой без превращения пакета в `cortex`
-- держать `runtime/` отдельным от инструкций и долгоживущего контекста
-- посмотреть, нужны ли отдельные bootstrap-профили под Python / Node / Docker после нескольких реальных переездов
+- закрепить anti-sprawl discipline: чистый корень, синхронная hot memory, строгий reusable bar для `skills/`
+- pressure-test `repo-recon`, `notebooklm-research` и `video-analyzer` на боевых задачах
+- решать про `progress`/compose/global layer только по реальному симптому, не по теории
+- при необходимости добавить automation/commands слой без превращения пака в `cortex`
