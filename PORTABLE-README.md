@@ -19,3 +19,4 @@
 3. Для агента загружать сначала `AGENTS.md`.
 4. Для ежедневной работы держать рядом `DAILY.md`.
 5. После структурных правок гонять `scripts/validate-context-pack.ps1`.
+6. Для нового ноута с OpenClaw использовать `setup-openclaw-laptop.ps1`.

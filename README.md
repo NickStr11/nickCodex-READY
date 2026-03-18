@@ -40,6 +40,8 @@
 - `.\resume.ps1` — печатает готовый prompt для входа в текущий проект
 - `.\new-project.ps1 <name>` — создаёт новый project-local repo рядом с этим pack
 - `.\doctor.ps1` — проверяет tooling, env и минимальный project-local context
+- `.\setup-openclaw-laptop.ps1` — быстрый bootstrap второго ноута под Codex + OpenClaw
+- `.\finalize-openclaw-laptop.ps1` — добивает OpenClaw после логина вторым Codex-аккаунтом
 - `powershell -ExecutionPolicy Bypass -File scripts/validate-project-context.ps1 -TargetPath <path>` — валидирует project-local scaffold
 
 ## Почему это уже не просто заметочник
@@ -76,6 +78,8 @@ cd D:\path\to\nickCodex-READY
 - для агента точка входа в `AGENTS.md`
 - для ежедневной работы без лишней навигации — `DAILY.md`
 - для переезда на другой комп — `PORTABILITY.md`
+- для нового ноута под OpenClaw — `OPENCLAW-SECOND-LAPTOP.md`
+- для готового prompt в свежий Codex — `FRESH-CODEX-OPENCLAW-PROMPT.md`
 - для быстрой проверки среды на новом компе — `powershell -ExecutionPolicy Bypass -File scripts/bootstrap-portable.ps1`
 
 Если менялась структура или документация:

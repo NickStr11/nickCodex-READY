@@ -4,6 +4,7 @@
 approval_policy = "on-request"
 sandbox_mode = "workspace-write"
 project_doc_max_bytes = 32768
+cli_auth_credentials_store = "file"
 
 [features]
 powershell_utf8 = true
@@ -12,6 +13,6 @@ multi_agent = false
 
 [sandbox_workspace_write]
 writable_roots = []
-network_access = false
+network_access = true
 exclude_tmpdir_env_var = false
 exclude_slash_tmp = false
