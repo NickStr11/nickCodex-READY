@@ -79,6 +79,7 @@ cd D:\path\to\nickCodex-READY
 - для ежедневной работы без лишней навигации — `DAILY.md`
 - для переезда на другой комп — `PORTABILITY.md`
 - для нового ноута под OpenClaw — `OPENCLAW-SECOND-LAPTOP.md`
+- для WSL fallback под OpenClaw — `WSL-MIGRATION.md`
 - для готового prompt в свежий Codex — `FRESH-CODEX-OPENCLAW-PROMPT.md`
 - для быстрой проверки среды на новом компе — `powershell -ExecutionPolicy Bypass -File scripts/bootstrap-portable.ps1`
 

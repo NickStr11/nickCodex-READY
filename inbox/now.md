@@ -1,19 +1,18 @@
 # NOW
 
-Обновлено: 2026-03-11
+Обновлено: 2026-03-18
 
 ## Current Focus
 
-- Удержать personal OS после роста: чистый корень, синхронная горячая память и `skills/` с явной границей `core/optional`.
+- Довести второй ноут до рабочего Codex + OpenClaw bootstrap на ветке `codex/openclaw-second-laptop-setup`.
 
 ## Next Actions
 
-- Прогнать `notebooklm-research` и `video-analyzer` на 1-2 реальных боевых кейсах, не только на smoke test.
-- Если `core/optional` начнёт мешать, резать дальше только по симптому, а не плодить новые подпапки заранее.
-- Добавлять новые слои только если они уменьшают ручную рутину, а не требуют отдельного обслуживания.
+- Дождаться реального прогона setup на новом ноуте и снять точный blocker, если он всплывёт.
+- После базового bring-up прикрутить Клешне отдельный GitHub-backed long-term memory repo.
+- Если native Windows path у OpenClaw трещит, перейти по `WSL-MIGRATION.md`, а не чинить это бесконечно.
 
 ## Parked
 
-- Отдельный progress layer или другой compression layer только если `inbox/now.md` перестанет тянуть.
-- Контекстный compose/report слой для `AGENTS.md` только если root contract начнёт реально пухнуть.
-- Отдельный global dotfiles layer для агентных настроек только если текущий `~/.codex` станет узким местом.
+- Root cleanup и более строгий `doctor` после того, как второй ноут реально заведётся.
+- Skill smoke tests только после того, как bootstrap трек перестанет гореть.

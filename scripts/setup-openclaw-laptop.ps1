@@ -9,6 +9,8 @@ param(
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 
+$config = Import-PowerShellDataFile -Path (Join-Path $PSScriptRoot 'openclaw-second-laptop.config.psd1')
+
 function Write-Step {
     param([string]$Message)
 
@@ -80,6 +82,7 @@ $repoRoot = Split-Path -Parent $PSScriptRoot
 
 Write-Host 'OpenClaw second-laptop bootstrap' -ForegroundColor Cyan
 Write-Host "Repo root: $repoRoot"
+Write-Host "Target model: $($config.OpenClawPrimaryModel)"
 
 Ensure-Tool -Name 'git' -WingetId 'Git.Git' -Label 'Git'
 Ensure-Tool -Name 'node' -WingetId 'OpenJS.NodeJS.LTS' -Label 'Node.js LTS'
@@ -151,7 +154,7 @@ else {
 }
 
 if (-not $SkipOpenClaw) {
-    Write-Host '2. Then run `.\finalize-openclaw-laptop.ps1` to reuse Codex auth and pin `openai-codex/gpt-5.4`.'
+    Write-Host "2. Then run `.\finalize-openclaw-laptop.ps1` to reuse Codex auth and pin `$($config.OpenClawPrimaryModel)`."
     Write-Host '3. Then check `openclaw gateway status`.'
     Write-Host '4. Then open `openclaw dashboard`.'
 }
@@ -163,4 +166,4 @@ Write-Host ''
 Write-Host 'Notes:' -ForegroundColor Yellow
 Write-Host '- Quick path: native Windows.'
 Write-Host '- Stable path per current OpenClaw docs: WSL2.'
-Write-Host '- If native Windows becomes flaky, migrate OpenClaw into WSL2 instead of endlessly patching the host setup.'
+Write-Host '- If native Windows becomes flaky, use WSL-MIGRATION.md instead of endlessly patching the host setup.'

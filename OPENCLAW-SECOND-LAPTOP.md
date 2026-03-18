@@ -46,16 +46,15 @@ powershell -ExecutionPolicy Bypass -File .\setup-openclaw-laptop.ps1
 После логина вторым аккаунтом второй скрипт:
 
 - пытается неинтерактивно использовать `~/.codex/auth.json` для OpenClaw
-- фиксирует модель `openai-codex/gpt-5.4`
-- включает `fastMode`
+- фиксирует целевую модель из `scripts/openclaw-second-laptop.config.psd1`
+- ставит `fastMode` из `scripts/openclaw-second-laptop.config.psd1`
 - валидирует конфиг и проверяет gateway status
 
 ## Какую модель ставить
 
-На сегодня нормальный старт такой:
+Source of truth для repo/model/finalize-настроек:
 
-- в Codex: `gpt-5.4`
-- в OpenClaw через Codex subscription path: `openai-codex/gpt-5.4`
+- `scripts/openclaw-second-laptop.config.psd1`
 
 В `.codex/config.toml` для этого repo включено `cli_auth_credentials_store = "file"`,
 чтобы после логина Codex складывал кэш в `~/.codex/auth.json`, который OpenClaw
@@ -72,6 +71,8 @@ powershell -ExecutionPolicy Bypass -File .\setup-openclaw-laptop.ps1
 Но по текущим официальным OpenClaw docs на Windows всё ещё рекомендован WSL2.
 Если native path начнет бесить, следующий шаг не “чинить вечно Windows”, а
 перевести OpenClaw в WSL2 и оставить этот repo как верхний workspace.
+
+Короткий runbook уже лежит в `WSL-MIGRATION.md`.
 
 ## Основные источники
 

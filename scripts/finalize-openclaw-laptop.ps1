@@ -6,6 +6,8 @@ param(
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 
+$config = Import-PowerShellDataFile -Path (Join-Path $PSScriptRoot 'openclaw-second-laptop.config.psd1')
+
 function Write-Step {
     param([string]$Message)
 
@@ -77,11 +79,13 @@ if (-not $SkipOnboarding) {
 }
 
 if (-not $SkipModelConfig) {
-    Write-Step 'Pinning OpenClaw to openai-codex/gpt-5.4'
-    openclaw config set agents.defaults.model.primary openai-codex/gpt-5.4
+    Write-Step "Pinning OpenClaw to $($config.OpenClawPrimaryModel)"
+    openclaw config set agents.defaults.model.primary $config.OpenClawPrimaryModel
 
-    Write-Step 'Enabling fastMode for openai-codex/gpt-5.4'
-    openclaw config set "agents.defaults.models[\"openai-codex/gpt-5.4\"].params.fastMode" true --strict-json
+    $fastModeLiteral = if ($config.OpenClawFastMode) { 'true' } else { 'false' }
+
+    Write-Step "Setting fastMode=$fastModeLiteral for $($config.OpenClawPrimaryModel)"
+    openclaw config set "agents.defaults.models[`"$($config.OpenClawPrimaryModel)`"].params.fastMode" $fastModeLiteral --strict-json
 
     Write-Step 'Validating OpenClaw config'
     openclaw config validate
@@ -99,4 +103,4 @@ Write-Host ''
 Write-Host 'Next steps:' -ForegroundColor Cyan
 Write-Host '1. Run openclaw dashboard'
 Write-Host '2. If you need channels later, add them via openclaw configure or openclaw onboard'
-Write-Host '3. If native Windows starts behaving like garbage, move OpenClaw to WSL2'
+Write-Host '3. If native Windows starts behaving like garbage, move OpenClaw via WSL-MIGRATION.md'

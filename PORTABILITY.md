@@ -34,3 +34,4 @@
    - `powershell -ExecutionPolicy Bypass -File .\finalize-openclaw-laptop.ps1`
 
 Детали и модельный выбор: `OPENCLAW-SECOND-LAPTOP.md`.
+Короткий WSL fallback: `WSL-MIGRATION.md`.

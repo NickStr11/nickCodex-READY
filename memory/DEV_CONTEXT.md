@@ -2,43 +2,38 @@
 
 ## Последнее обновление
 
-- Дата: 2026-03-11
+- Дата: 2026-03-18
 
 ## Текущий статус
 
 - Репо уже оформлено как нормальный portable context pack: `memory/`, `runtime/`, `inbox/`, `CLAUDE.md`, CI, issue templates, PR template, `LICENSE`, `.gitignore`, `.gitattributes`.
-- Добавлены короткие operational entrypoints `PORTABILITY.md` и `DAILY.md`.
-- Добавлен `scripts/bootstrap-portable.ps1` для быстрого старта на новой машине.
-- Добавлен operational shell:
-  - `resume.ps1`
-  - `new-project.ps1`
-  - `doctor.ps1`
-  - `scripts/validate-project-context.ps1`
-- Добавлен starter scaffold в `templates/project-starter/`.
-- Добавлен `repo-recon` и усилен safety-map шагом для хрупких систем и опасных рефакторингов.
-- Добавлен `notebooklm-research` с реальным adapter script и живым smoke test через `notebooklm` CLI.
-- Pack validator усилен: теперь проверяет публичные слои, alias-файлы, bootstrap-путь, nested skills и safety-map для `repo-recon`.
-- `skills/` разрезан на `core/` и `optional/`, чтобы OS-слой и боевые интеграции не жили вперемешку.
+- Добавлен отдельный трек под второй ноут: `setup-openclaw-laptop.ps1`, `finalize-openclaw-laptop.ps1`, `OPENCLAW-SECOND-LAPTOP.md`, `FRESH-CODEX-OPENCLAW-PROMPT.md`.
+- Под second-laptop flow есть отдельная ветка `codex/openclaw-second-laptop-setup`, чтобы не мешать этот rollout с остальным repo.
+- Source of truth для repo/model настроек второго ноута вынесен в `scripts/openclaw-second-laptop.config.psd1`.
+- Добавлен `WSL-MIGRATION.md` как короткий fallback-runbook, если native Windows path у OpenClaw начинает разваливаться.
+- На новом ноуте уже идёт реальный прогон setup через голый Codex, не только локальная сухая проверка.
 
 ## Что выяснилось
 
-- Структура repo ещё держится, но drift начинается не по схеме, а по дисциплине.
-- В корень начинают лезть task-specific артефакты и experiment files, если не чистить их сразу.
-- `inbox/now.md` и memory быстро отстают от реального состояния repo, если не синхронизировать их после структурных правок.
-- В `skills/` легко начинают появляться project-specific хвосты, если не держать reusable bar жёстко.
+- Самый хрупкий кусок не структура pack, а первый запуск на голой Windows-машине: Codex extension/Windows path может быть нестабилен раньше, чем сам repo успевает помочь.
+- Для second-laptop flow нужно держать отдельно два слоя:
+  - system/bootstrap repo: `nickCodex-READY`
+  - будущий GitHub-backed long-term memory repo для Клешни
+- GitHub-backed память Клешни пока не встроена в автоматизацию и остаётся следующим отдельным этапом после базового bring-up.
 
 ## Ближайший фокус
 
-- Держать корень каноническим входом, а не рабочим столом.
-- Держать `skills/` только для реально reusable workflows.
-- Pressure-test'нуть `repo-recon`, `notebooklm-research` и `video-analyzer` на живых задачах, а не только на smoke test.
-- Развивать только те слои, которые реально сокращают ручную рутину.
+- Довести до рабочего состояния второй ноут: Codex login -> finalize -> `openclaw gateway status` -> `openclaw dashboard`.
+- После базового старта прикрутить Клешне отдельный GitHub-backed memory repo, не смешивая его с системным bootstrap repo.
+- Решать вопрос с WSL2 только если native Windows реально не держится, а не заранее.
 
 ## Known Issues
 
-- Часть старых markdown-файлов по-прежнему отображается в shell с mojibake из-за кодировки консоли, хотя сами файлы живы.
-- Рядом с repo уже накопились test project folders от smoke test, их лучше разобрать отдельно от этого cleanup.
+- На части Windows-машин Codex extension может падать ещё до того, как setup repo вообще начнёт работать.
+- GitHub-backed память Клешни пока не описана как повторяемый runbook: нужен либо старый источник/статья, либо отдельный ресёрч через Exa.
+- В worktree уже есть посторонние незакоммиченные изменения не по second-laptop flow; их лучше не мешать в один merge.
 
 ## Next Step
 
-- После cleanup добить реальные боевые прогоны для `repo-recon`, `notebooklm-research` и `video-analyzer`, а потом уже решать, нужен ли следующий слой automation/commands.
+- Снять фактический blocker с нового ноута, если он появится.
+- После этого оформить второй этап: GitHub-backed long-term memory для Клешни.
