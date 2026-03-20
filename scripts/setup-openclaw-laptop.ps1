@@ -166,4 +166,4 @@ Write-Host ''
 Write-Host 'Notes:' -ForegroundColor Yellow
 Write-Host '- Quick path: native Windows.'
 Write-Host '- Stable path per current OpenClaw docs: WSL2.'
-Write-Host '- If native Windows becomes flaky, use WSL-MIGRATION.md instead of endlessly patching the host setup.'
+Write-Host '- If native Windows becomes flaky, use runbooks/openclaw/WSL-MIGRATION.md instead of endlessly patching the host setup.'

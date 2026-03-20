@@ -33,5 +33,5 @@
    - вход вторым ChatGPT/Codex-аккаунтом
    - `powershell -ExecutionPolicy Bypass -File .\finalize-openclaw-laptop.ps1`
 
-Детали и модельный выбор: `OPENCLAW-SECOND-LAPTOP.md`.
-Короткий WSL fallback: `WSL-MIGRATION.md`.
+Детали и модельный выбор: `runbooks/openclaw/OPENCLAW-SECOND-LAPTOP.md`.
+Короткий WSL fallback: `runbooks/openclaw/WSL-MIGRATION.md`.

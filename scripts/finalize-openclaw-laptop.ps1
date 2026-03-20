@@ -103,4 +103,4 @@ Write-Host ''
 Write-Host 'Next steps:' -ForegroundColor Cyan
 Write-Host '1. Run openclaw dashboard'
 Write-Host '2. If you need channels later, add them via openclaw configure or openclaw onboard'
-Write-Host '3. If native Windows starts behaving like garbage, move OpenClaw via WSL-MIGRATION.md'
+Write-Host '3. If native Windows starts behaving like garbage, move OpenClaw via runbooks/openclaw/WSL-MIGRATION.md'

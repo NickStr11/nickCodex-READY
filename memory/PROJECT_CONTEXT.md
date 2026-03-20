@@ -18,6 +18,7 @@
 - короткие operational entrypoints `PORTABILITY.md` и `DAILY.md`
 - `scripts/bootstrap-portable.ps1` для быстрого старта на новом компе
 - боевые skills для repo входа, research, docs, TDD, video analysis и NotebookLM-backed research
+- project-scoped subagent layer в `.codex/agents/` для `repo_recon`, `security_reviewer`, `docs_researcher`, `browser_debugger` и `targeted_fixer`, который должен включаться проактивно по типу задачи, а не только по ручной команде пользователя
 - safety-map check внутри `repo-recon` для хрупких и интеграционно тяжёлых систем
 
 ## Текущий фокус

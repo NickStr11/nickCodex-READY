@@ -5,16 +5,15 @@ $repoRoot = Split-Path -Parent $PSScriptRoot
 
 $requiredPaths = @(
     'AGENTS.md',
-    'AGENTS-HARD.md',
     'CLAUDE.md',
     'README.md',
-    'PORTABLE-README.md',
     'PORTABILITY.md',
     'DAILY.md',
     'LICENSE',
     'CONTRIBUTING.md',
     'resume.ps1',
     'new-project.ps1',
+    'new-memory-repo.ps1',
     'doctor.ps1',
     '.editorconfig',
     '.github/AGENTS.md',
@@ -24,6 +23,14 @@ $requiredPaths = @(
     '.github/ISSUE_TEMPLATE/skill-request.yml',
     '.github/pull_request_template.md',
     '.codex/config.toml',
+    '.codex/agents/AGENTS.md',
+    '.codex/agents/repo-recon.toml',
+    '.codex/agents/security-reviewer.toml',
+    '.codex/agents/docs-researcher.toml',
+    '.codex/agents/exa-researcher.toml',
+    '.codex/agents/notebooklm-summarizer.toml',
+    '.codex/agents/browser-debugger.toml',
+    '.codex/agents/targeted-fixer.toml',
     'rules/AGENTS.md',
     'rules/README.md',
     'rules/agent-behavior.md',
@@ -39,6 +46,7 @@ $requiredPaths = @(
     'memory/README.md',
     'memory/PROJECT_CONTEXT.md',
     'memory/DEV_CONTEXT.md',
+    'memory/diary/README.md',
     'memory/sessions/README.md',
     'inbox/AGENTS.md',
     'inbox/README.md',
@@ -55,22 +63,59 @@ $requiredPaths = @(
     'scripts/bootstrap-portable.ps1',
     'scripts/resume.ps1',
     'scripts/new-project.ps1',
+    'scripts/new-memory-repo.ps1',
     'scripts/doctor.ps1',
+    'scripts/smoke-codex-subagents.ps1',
+    'scripts/sync-project-subagents.ps1',
     'scripts/validate-project-context.ps1',
     'templates/README.md',
     'templates/project-starter/AGENTS.md',
     'templates/project-starter/README.md',
     'templates/project-starter/.gitignore',
+    'templates/project-starter/.codex/config.toml',
+    'templates/project-starter/.codex/agents/AGENTS.md',
+    'templates/project-starter/.codex/agents/repo-recon.toml',
+    'templates/project-starter/.codex/agents/security-reviewer.toml',
+    'templates/project-starter/.codex/agents/docs-researcher.toml',
+    'templates/project-starter/.codex/agents/exa-researcher.toml',
+    'templates/project-starter/.codex/agents/notebooklm-summarizer.toml',
+    'templates/project-starter/.codex/agents/browser-debugger.toml',
+    'templates/project-starter/.codex/agents/targeted-fixer.toml',
     'templates/project-starter/resume.ps1',
     'templates/project-starter/memory/PROJECT_CONTEXT.md',
     'templates/project-starter/memory/DEV_CONTEXT.md',
+    'templates/project-starter/memory/diary/README.md',
     'templates/project-starter/inbox/now.md',
     'templates/project-starter/inbox/backlog.md',
     'templates/project-starter/runtime/research/README.md',
     'templates/project-starter/runtime/outputs/README.md',
     'templates/project-starter/runtime/scratch/README.md',
     'templates/project-starter/scripts/README.md',
+    'templates/project-starter/scripts/smoke-codex-subagents.ps1',
     'templates/project-starter/scripts/validate-project-context.ps1',
+    'templates/memory-repo-starter/AGENTS.md',
+    'templates/memory-repo-starter/README.md',
+    'templates/memory-repo-starter/.gitignore',
+    'templates/memory-repo-starter/resume.ps1',
+    'templates/memory-repo-starter/persona/voice.md',
+    'templates/memory-repo-starter/persona/operator-rules.md',
+    'templates/memory-repo-starter/memory/user-profile.md',
+    'templates/memory-repo-starter/memory/stable-facts.md',
+    'templates/memory-repo-starter/memory/projects.md',
+    'templates/memory-repo-starter/memory/relationships.md',
+    'templates/memory-repo-starter/memory/CHANGELOG.md',
+    'templates/memory-repo-starter/handoff/now.md',
+    'templates/memory-repo-starter/handoff/recent-decisions.md',
+    'templates/memory-repo-starter/runtime/imports/README.md',
+    'templates/memory-repo-starter/scripts/validate-memory-repo.ps1',
+    'templates/memory-repo-starter/knowledge/imported/cipher-knowledge/README.md',
+    'MEMORY-REPO-RUNBOOK.md',
+    'runbooks/README.md',
+    'runbooks/openclaw/README.md',
+    'runbooks/openclaw/OPENCLAW-SECOND-LAPTOP.md',
+    'runbooks/openclaw/OPENCLAW-UPGRADE-RUNBOOK.md',
+    'runbooks/openclaw/WSL-MIGRATION.md',
+    'runbooks/openclaw/FRESH-CODEX-OPENCLAW-PROMPT.md',
     'scripts/validate-context-pack.ps1'
 )
 
@@ -107,6 +152,8 @@ $publicDirsRequiringReadme = @(
     'memory',
     'inbox',
     'runtime',
+    'runbooks',
+    'runbooks/openclaw',
     'runtime/imports',
     'runtime/imports/youtube-raw',
     'runtime/outputs',
@@ -118,6 +165,18 @@ foreach ($dir in $publicDirsRequiringReadme) {
     $readmePath = Join-Path $repoRoot (Join-Path $dir 'README.md')
     if (-not (Test-Path -LiteralPath $readmePath)) {
         $errors.Add("Missing README for public layer: $dir/README.md")
+    }
+}
+
+$runtimeOutputsPath = Join-Path $repoRoot 'runtime\outputs'
+if (Test-Path -LiteralPath $runtimeOutputsPath) {
+    $topLevelOutputDirs = Get-ChildItem -LiteralPath $runtimeOutputsPath -Directory -Force -ErrorAction SilentlyContinue
+    foreach ($dir in $topLevelOutputDirs) {
+        $embeddedOutputsPath = Join-Path $dir.FullName 'runtime\outputs'
+        if (Test-Path -LiteralPath $embeddedOutputsPath) {
+            $relativeDir = $dir.FullName.Substring($repoRoot.Length + 1).Replace('\', '/')
+            $errors.Add("Top-level runtime output must not embed a repo-shaped runtime/outputs tree: $relativeDir")
+        }
     }
 }
 
@@ -258,10 +317,88 @@ function Test-AliasFile {
 
 }
 
+function Test-CodexAgentToml {
+    param(
+        [string]$RelativePath
+    )
+
+    $fullPath = Join-Path $repoRoot $RelativePath
+    if (-not (Test-Path -LiteralPath $fullPath)) {
+        return $null
+    }
+
+    $content = Get-Content -LiteralPath $fullPath -Raw -Encoding utf8
+
+    if ($content -notmatch '(?m)^name\s*=\s*".+?"\s*$') {
+        $errors.Add("Missing custom agent name: $RelativePath")
+    }
+
+    if ($content -notmatch '(?m)^description\s*=\s*".+?"\s*$') {
+        $errors.Add("Missing custom agent description: $RelativePath")
+    }
+
+    if ($content -notmatch '(?s)developer_instructions\s*=\s*""".+?"""') {
+        $errors.Add("Missing custom agent developer_instructions: $RelativePath")
+    }
+
+    if ($content -notmatch '(?m)^sandbox_mode\s*=\s*"(read-only|workspace-write|danger-full-access)"\s*$') {
+        $errors.Add("Missing or invalid sandbox_mode for custom agent: $RelativePath")
+    }
+
+    $nameMatch = [regex]::Match($content, '(?m)^name\s*=\s*"([^"]+)"\s*$')
+    if ($nameMatch.Success) {
+        return $nameMatch.Groups[1].Value
+    }
+
+    return $null
+}
+
 Test-ContentHasPatterns -RelativePath 'memory/README.md' -Patterns @('DEV_CONTEXT\.md', 'PROJECT_CONTEXT\.md') -ErrorPrefix 'Memory boundary is too vague'
 Test-ContentHasPatterns -RelativePath 'PORTABILITY.md' -Patterns @('bootstrap-portable\.ps1', 'validate-context-pack\.ps1') -ErrorPrefix 'Portability flow is incomplete'
 Test-AliasFile -RelativePath 'CLAUDE.md'
-Test-AliasFile -RelativePath 'AGENTS-HARD.md'
+Test-ContentHasPatterns -RelativePath '.codex/config.toml' -Patterns @('(?s)\[features\].*?multi_agent\s*=\s*true', '(?s)\[agents\].*?max_threads\s*=\s*\d+', '(?s)\[agents\].*?max_depth\s*=\s*\d+') -ErrorPrefix 'Codex subagent config is incomplete'
+Test-ContentHasPatterns -RelativePath '.codex/agents/docs-researcher.toml' -Patterns @('(?s)\[mcp_servers\.openaiDeveloperDocs\].*?https://developers\.openai\.com/mcp') -ErrorPrefix 'docs_researcher MCP wiring is incomplete'
+Test-ContentHasPatterns -RelativePath 'templates/project-starter/.codex/config.toml' -Patterns @('(?s)\[features\].*?multi_agent\s*=\s*true', '(?s)\[agents\].*?max_threads\s*=\s*\d+', '(?s)\[agents\].*?max_depth\s*=\s*\d+') -ErrorPrefix 'Project starter Codex subagent config is incomplete'
+Test-ContentHasPatterns -RelativePath 'templates/project-starter/.codex/agents/docs-researcher.toml' -Patterns @('(?s)\[mcp_servers\.openaiDeveloperDocs\].*?https://developers\.openai\.com/mcp') -ErrorPrefix 'Project starter docs_researcher MCP wiring is incomplete'
+
+function Test-CodexAgentSet {
+    param(
+        [string[]]$RelativePaths,
+        [string]$Label
+    )
+
+    $agentNames = [System.Collections.Generic.HashSet[string]]::new()
+    foreach ($agentFile in $RelativePaths) {
+        $agentName = Test-CodexAgentToml -RelativePath $agentFile
+        if ([string]::IsNullOrWhiteSpace($agentName)) {
+            continue
+        }
+
+        if (-not $agentNames.Add($agentName)) {
+            $errors.Add("$Label has duplicate custom agent name: $agentName")
+        }
+    }
+}
+
+Test-CodexAgentSet -Label 'Root custom agents' -RelativePaths @(
+    '.codex/agents/repo-recon.toml',
+    '.codex/agents/security-reviewer.toml',
+    '.codex/agents/docs-researcher.toml',
+    '.codex/agents/exa-researcher.toml',
+    '.codex/agents/notebooklm-summarizer.toml',
+    '.codex/agents/browser-debugger.toml',
+    '.codex/agents/targeted-fixer.toml'
+)
+
+Test-CodexAgentSet -Label 'Project starter custom agents' -RelativePaths @(
+    'templates/project-starter/.codex/agents/repo-recon.toml',
+    'templates/project-starter/.codex/agents/security-reviewer.toml',
+    'templates/project-starter/.codex/agents/docs-researcher.toml',
+    'templates/project-starter/.codex/agents/exa-researcher.toml',
+    'templates/project-starter/.codex/agents/notebooklm-summarizer.toml',
+    'templates/project-starter/.codex/agents/browser-debugger.toml',
+    'templates/project-starter/.codex/agents/targeted-fixer.toml'
+)
 
 $skillDirs = Get-ChildItem -Path (Join-Path $repoRoot 'skills') -Recurse -File -Filter 'SKILL.md' -ErrorAction SilentlyContinue |
     ForEach-Object { $_.Directory } |

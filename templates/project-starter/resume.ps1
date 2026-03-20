@@ -10,7 +10,10 @@ Read first:
 - $projectRoot\memory\PROJECT_CONTEXT.md
 - $projectRoot\inbox\now.md
 
-If you need the latest handoff:
+If you need the latest finished-session handoff:
+- latest file in $projectRoot\memory\diary\
+
+If you still need transitional hot state:
 - $projectRoot\memory\DEV_CONTEXT.md
 
 Then briefly say:

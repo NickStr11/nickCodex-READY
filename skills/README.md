@@ -44,7 +44,9 @@ skills/
 
 - `video-analyzer` — разбор одного видео, пачки видео или канала/плейлиста
 - `notebooklm-research` — deep research через Google NotebookLM CLI
+- `exa-research` — research-first поиск и code context через Exa MCP
 - `planner` — планирование по явному запросу пользователя
+- `openclaw-memory-cutover` — cutover OpenClaw с сломанного `Hindsight` на отдельный repo-backed memory flow
 - `tdd-test-writer` — RED-фаза TDD и regression-first bugfix workflow
 - `read-github` — чтение GitHub-реп через `gitmcp.io`
 - `markdown-url` — чтение сайтов через markdown proxy

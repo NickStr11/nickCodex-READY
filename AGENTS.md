@@ -37,6 +37,7 @@
 - `inbox/backlog.md` — если нужно разобрать входящие идеи, хвосты и отложенные штуки
 - `DAILY.md` — если нужен короткий ежедневный golden path без чтения всего README
 - `PORTABILITY.md` — если задача про перенос на другой комп или быстрый подъём среды
+- `runbooks/openclaw/*` — если задача про второй ноут, OpenClaw rollout или WSL fallback
 - `scripts/bootstrap-portable.ps1` — если надо быстро проверить готовность среды на новом компе
 - `writing-style.md` — тексты, блог, эссе, voice-sensitive перепись
 - `deep-values.md` — конфликты ценностей, антиценности, внутренняя мотивация
@@ -49,15 +50,14 @@
 ## Карта проекта
 
 - `README.md` — quick start для человека
-- `PORTABLE-README.md` — короткое описание portable-пакета
 - `PORTABILITY.md` — сценарий переезда на другой комп и quick boot
 - `DAILY.md` — короткий daily flow без философии
-- `AGENTS-HARD.md` — совместимый алиас, не второй источник истины
 - `CLAUDE.md` — совместимый алиас для Claude Code, не второй источник истины
 - `LICENSE` — лицензия репозитория
 - `CONTRIBUTING.md` — правила вклада и operational-гигиена
 - `.github/` — CI, issue templates и PR template
 - `.codex/config.toml` — project config для Codex
+- `.codex/agents/` — project-scoped custom subagents для parallel workflows и узких ролей
 - `resume.ps1` — быстрый вход в текущий project-local repo
 - `new-project.ps1` — bootstrap нового project-local repo рядом с этим pack
 - `doctor.ps1` — проверка tooling, env и минимального project-local context
@@ -67,6 +67,7 @@
 - `memory/` — активная и временная память проекта: цель, текущий статус, последние сессии
 - `inbox/` — входящий слой и текущий фокус
 - `runtime/` — сырые импорты, выгрузки, research-output и временные артефакты
+- `runbooks/` — редкие сценарные runbooks и миграции, которые не нужны в daily root
 - `templates/` — starter-шаблоны для новых project-local repo
 - `scripts/validate-context-pack.ps1` — проверка структуры и ссылок
 - `scripts/bootstrap-portable.ps1` — быстрая проверка переносимости и доступных инструментов
@@ -91,6 +92,25 @@
 5. Если пользователь дал путь, репо или файл — сначала смотри это, потом рассуждай.
 6. Если можно показать пример, команду, патч или код — показывай.
 7. Если задача упирается в среду, права или зависимости — говори это прямо.
+
+## Subagent Routing
+
+- Если задача явно подходит под project-scoped subagents из `.codex/agents/`, используй их проактивно, даже если пользователь не назвал их руками.
+- `repo_recon` — первый проход по чужому или большому repo: стек, entrypoints, execution path, hotspots, attack path.
+- `security_reviewer` — security review, hardening, секреты, auth, unsafe defaults, network/deploy risk.
+- `docs_researcher` — спорные API, свежая документация, version-specific behavior, внешняя верификация.
+- `exa_researcher` — свежий веб-ресёрч, source discovery, implementation examples, current comparisons через Exa или live search.
+- `notebooklm_summarizer` — source-backed summary для YouTube, статей, PDF и source bundles через NotebookLM, если он доступен.
+- `browser_debugger` — UI баги, воспроизведение, screenshots, console/network evidence.
+- `targeted_fixer` — маленький локальный фикс после того, как причина уже понятна.
+- Если задача нормально раскладывается, поднимай 2-3 узких subagents параллельно, а не тащи всё через одного.
+- Дефолтные связки:
+- repo analysis/review -> `repo_recon + security_reviewer + docs_researcher`
+- external research -> `exa_researcher`, потом `docs_researcher` для official confirmation
+- browser bug -> `browser_debugger + repo_recon`, потом `targeted_fixer`
+- source summary -> `notebooklm_summarizer`, при необходимости вместе с `exa_researcher`
+- Для мелкой правки одного файла subagents не поднимать.
+- Родительская сессия должна оставаться оркестратором: запустить нужных узких агентов, собрать вывод, отдать пользователю короткий consolidated answer.
 
 ## Editing Rules
 

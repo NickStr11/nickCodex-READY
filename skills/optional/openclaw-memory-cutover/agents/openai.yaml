@@ -1,0 +1,4 @@
+interface:
+  display_name: "OpenClaw Memory Cutover"
+  short_description: "Cut over OpenClaw from Hindsight to repo-backed memory"
+  default_prompt: "Use $openclaw-memory-cutover when stabilizing an OpenClaw workspace and moving durable memory from Hindsight to a separate git-backed repo."

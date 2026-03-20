@@ -8,25 +8,36 @@
 
 ## Login
 
-- Interactive login often does not behave well inside an agent-run terminal.
-- Use:
+- The upstream `notebooklm login` flow needs a manual `ENTER` in the terminal after the browser login. That is easy to miss.
+- Prefer the skill helper instead:
 
 ```powershell
-powershell -Command "Start-Process cmd -ArgumentList '/k notebooklm login'"
+python skills/notebooklm-research/scripts/ensure_notebooklm_auth.py --json
 ```
 
-- Finish the browser flow manually, then rerun the task.
+- It reuses the persistent browser profile, opens a browser only if needed, waits for the NotebookLM homepage, and auto-saves `storage_state.json`.
+- The helper prefers real installed `Chrome` or `Edge` channels first and strips Playwright's `--no-sandbox` default flag. This avoids Google's "unsafe browser or app" block and the endless-loading sign-in screen that can appear with the embedded Playwright browser flow.
 
 ## Expired Auth
 
-If `notebooklm auth check --json` shows missing cookies like `SID`, the stored browser session expired.
+`notebooklm auth check --json` only validates the stored cookie file. It can still look green while the live NotebookLM session is already dead.
 
-Fix:
+Always confirm with:
 
-1. rerun `notebooklm login`
-2. confirm with `notebooklm auth check --json`
+```powershell
+notebooklm list --json
+```
 
-## Current Notebook Context
+If `list --json` redirects to Google sign-in, the live session is invalid even when `auth check` says `ok`.
 
-- `notebooklm use <id>` changes the active notebook context in the local CLI state.
-- The adapter script always passes `-n <id>` explicitly, so it does not depend on whatever was active before.
+Fix order:
+
+1. run the helper `ensure_notebooklm_auth.py`
+2. if a browser window opens, finish the login there
+3. wait until the NotebookLM homepage loads
+4. rerun the task
+
+## Persistent Browser Profile
+
+- The helper and the upstream CLI both use the persistent profile under `NOTEBOOKLM_HOME/browser_profile` or `~/.notebooklm/browser_profile`.
+- This means the helper can often refresh `storage_state.json` without asking you to log in again, as long as the browser profile still has a valid NotebookLM session.
