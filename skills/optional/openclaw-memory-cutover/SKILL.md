@@ -60,7 +60,7 @@ Cut over OpenClaw to a stable repo-backed memory layout fast. Treat this as an o
 
 ## Repo Hints
 
-- If present, use `../../../OPENCLAW-SECOND-LAPTOP.md` for second-machine operational context.
-- If present, use `../../../OPENCLAW-UPGRADE-RUNBOOK.md` for upgrade and rollback sequencing.
+- If present, use `../../../runbooks/openclaw/OPENCLAW-SECOND-LAPTOP.md` for second-machine operational context.
+- If present, use `../../../runbooks/openclaw/OPENCLAW-UPGRADE-RUNBOOK.md` for upgrade and rollback sequencing.
 - If present, use `../../../MEMORY-REPO-RUNBOOK.md` for the durable repo layout and import discipline.
 - Run `powershell -ExecutionPolicy Bypass -File scripts/validate-context-pack.ps1` from the repo root after changing pack structure or docs.

@@ -18,7 +18,7 @@
 - На VM у `funding-scanner` был продовый сбой: `funding-scanner.timer` оказался `masked`, а systemd unit-файлы стали нулевыми.
 - Из-за этого live часть панели умерла, historical осталась жить, UI зависал на `Connecting...`.
 - Инцидент починен: unit-файлы восстановлены, timer снова активен, web перезапущен, live snapshot снова живой.
-- Отдельно починен баг login page в `web.py` и подкручен тёмный стиль dropdown в `dashboard_page.py`.
+- Отдельно починен баг login page в `D:\code\2026\3\funding-scanner\web.py` и подкручен тёмный стиль dropdown в `D:\code\2026\3\funding-scanner\dashboard_page.py`.
 
 ## Где продолжать
 
