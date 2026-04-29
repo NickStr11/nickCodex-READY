@@ -27,6 +27,7 @@
 - Секреты и `.env`.
 - Payload из `runtime/`.
 - Локальная времянка и машинный мусор.
+- Абсолютные symlink-и на локальные vault-пути вроде `C:\Program Files\Obsidian\...`; для portability держи snapshot-файлы.
 
 `.gitignore` уже настроен под это, но не надейся на него вслепую.
 
@@ -47,6 +48,13 @@ powershell -ExecutionPolicy Bypass -File scripts/validate-context-pack.ps1
 
 GitHub Actions в [`.github/workflows/validate-context-pack.yml`](.github/workflows/validate-context-pack.yml) гоняет ту же проверку на `push` и `pull_request`.
 PR review через [`.github/workflows/codex-review.yml`](.github/workflows/codex-review.yml) работает только если в репозитории настроен secret `OPENAI_API_KEY`.
+
+Если менял профиль в Obsidian-каноне, обнови repo snapshot:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/sync-profile-from-obsidian.ps1
+git diff -- aboutme.md deep-values.md deep-philosophy.md writing-style.md
+```
 
 ## Pull Request bar
 

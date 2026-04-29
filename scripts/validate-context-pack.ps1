@@ -76,6 +76,7 @@ $requiredPaths = @(
     'scripts/new-memory-repo.ps1',
     'scripts/doctor.ps1',
     'scripts/smoke-codex-subagents.ps1',
+    'scripts/sync-profile-from-obsidian.ps1',
     'scripts/sync-agent-skills.ps1',
     'scripts/sync-project-subagents.ps1',
     'scripts/validate-project-context.ps1',
@@ -369,6 +370,7 @@ function Test-CodexAgentToml {
 
 Test-ContentHasPatterns -RelativePath 'memory/README.md' -Patterns @('DEV_CONTEXT\.md', 'PROJECT_CONTEXT\.md') -ErrorPrefix 'Memory boundary is too vague'
 Test-ContentHasPatterns -RelativePath 'PORTABILITY.md' -Patterns @('bootstrap-portable\.ps1', 'validate-context-pack\.ps1') -ErrorPrefix 'Portability flow is incomplete'
+Test-ContentHasPatterns -RelativePath 'scripts/sync-profile-from-obsidian.ps1' -Patterns @('aboutme\.md', 'deep-values\.md', 'deep-philosophy\.md', 'writing-style\.md', 'SourcePath') -ErrorPrefix 'Profile sync script is incomplete'
 Test-AliasFile -RelativePath 'CLAUDE.md'
 Test-ContentHasPatterns -RelativePath '.codex/config.toml' -Patterns @('(?s)\[features\].*?multi_agent\s*=\s*true', '(?s)\[agents\].*?max_threads\s*=\s*\d+', '(?s)\[agents\].*?max_depth\s*=\s*\d+') -ErrorPrefix 'Codex subagent config is incomplete'
 Test-ContentHasPatterns -RelativePath '.codex/agents/docs-researcher.toml' -Patterns @('(?s)\[mcp_servers\.openaiDeveloperDocs\].*?https://developers\.openai\.com/mcp') -ErrorPrefix 'docs_researcher MCP wiring is incomplete'

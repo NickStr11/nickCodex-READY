@@ -32,6 +32,7 @@ powershell -ExecutionPolicy Bypass -File scripts/bootstrap-portable.ps1
 Что восстановится из GitHub:
 - root contract `AGENTS.md`
 - Codex usage flow `CODEX-USAGE.md`
+- profile snapshots: `aboutme.md`, `deep-values.md`, `deep-philosophy.md`, `writing-style.md`
 - `.codex/config.toml` и `.codex/agents/*`
 - repo-native skills `.agents/skills/*`
 - канонические skills `skills/*`
@@ -41,8 +42,15 @@ powershell -ExecutionPolicy Bypass -File scripts/bootstrap-portable.ps1
 Что не восстановится автоматически:
 - локальный вход в Codex/OpenAI/GitHub CLI
 - `.env` и секреты
+- Obsidian vault и локальный `~/.claude/aboutme.md` symlink
 - payload из `runtime/`
 - локальные кэши и машинная времянка
+
+Profile SSOT:
+- Obsidian `GameChanger\AI\` — канон, где профиль редактируется руками
+- `~/.claude/aboutme.md` может быть локальным symlink на Obsidian
+- `nickCodex-READY/aboutme.md` и соседние deep-файлы — portable snapshot, не symlink
+- обновление snapshot: `powershell -ExecutionPolicy Bypass -File scripts/sync-profile-from-obsidian.ps1`
 
 Проверка после clone:
 
