@@ -8,6 +8,7 @@ $requiredPaths = @(
     'CLAUDE.md',
     'README.md',
     'CODEX-USAGE.md',
+    'RESTORE-CHECKLIST.md',
     'PORTABILITY.md',
     'DAILY.md',
     'LICENSE',

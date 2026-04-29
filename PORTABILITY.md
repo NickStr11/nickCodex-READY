@@ -19,6 +19,8 @@ cd nickCodex-READY
 powershell -ExecutionPolicy Bypass -File scripts/bootstrap-portable.ps1
 ```
 
+Если хочешь, чтобы Codex на другом компе сам всё проверил по шагам, дай ему `RESTORE-CHECKLIST.md`.
+
 Если папки `D:\code\2026\3` нет, создай её или выбери любой удобный путь.
 
 После этого открой repo как workspace в Codex и дай короткий стартовый prompt:

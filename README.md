@@ -70,6 +70,7 @@ cd D:\path\to\nickCodex-READY
 
 Открой `AGENTS.md`, для daily работы держи рядом `DAILY.md`, для живого статуса смотри `inbox/now.md` и `memory/DEV_CONTEXT.md`.
 Для переезда на другой комп используй [PORTABILITY.md](PORTABILITY.md).
+Если нужно дать новому Codex готовый чек-лист восстановления, используй [RESTORE-CHECKLIST.md](RESTORE-CHECKLIST.md).
 Для отдельной долгой памяти используй `MEMORY-REPO-RUNBOOK.md` и `.\new-memory-repo.ps1 claw-memory`.
 Для редких OpenClaw-сценариев смотри `runbooks/openclaw/README.md`.
 
