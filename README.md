@@ -48,12 +48,28 @@
 
 ## Quick Start
 
+С нуля на другом компе:
+
+```powershell
+git clone https://github.com/NickStr11/nickCodex-READY.git
+cd nickCodex-READY
+powershell -ExecutionPolicy Bypass -File scripts/bootstrap-portable.ps1
+```
+
+В новом Codex-чате:
+
+```text
+Подними AGENTS.md и CODEX-USAGE.md. Используй $daily-session, проверь текущий фокус и продолжи работу.
+```
+
+Локально, если repo уже есть:
+
 ```powershell
 cd D:\path\to\nickCodex-READY
 ```
 
 Открой `AGENTS.md`, для daily работы держи рядом `DAILY.md`, для живого статуса смотри `inbox/now.md` и `memory/DEV_CONTEXT.md`.
-Для переезда на другой комп используй `PORTABILITY.md`.
+Для переезда на другой комп используй [PORTABILITY.md](PORTABILITY.md).
 Для отдельной долгой памяти используй `MEMORY-REPO-RUNBOOK.md` и `.\new-memory-repo.ps1 claw-memory`.
 Для редких OpenClaw-сценариев смотри `runbooks/openclaw/README.md`.
 

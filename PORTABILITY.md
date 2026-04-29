@@ -2,6 +2,52 @@
 
 Копировать на другой комп нужно прежде всего сам репозиторий `nickCodex-READY`.
 
+## Свежий комп через GitHub
+
+GitHub-источник:
+
+```text
+https://github.com/NickStr11/nickCodex-READY
+```
+
+На новом или рабочем компе:
+
+```powershell
+cd D:\code\2026\3
+git clone https://github.com/NickStr11/nickCodex-READY.git
+cd nickCodex-READY
+powershell -ExecutionPolicy Bypass -File scripts/bootstrap-portable.ps1
+```
+
+Если папки `D:\code\2026\3` нет, создай её или выбери любой удобный путь.
+
+После этого открой repo как workspace в Codex и дай короткий стартовый prompt:
+
+```text
+Подними AGENTS.md и CODEX-USAGE.md. Используй $daily-session, проверь текущий фокус и продолжи работу с этим context pack.
+```
+
+Что восстановится из GitHub:
+- root contract `AGENTS.md`
+- Codex usage flow `CODEX-USAGE.md`
+- `.codex/config.toml` и `.codex/agents/*`
+- repo-native skills `.agents/skills/*`
+- канонические skills `skills/*`
+- rules, memory, inbox, runbooks, templates, validators
+- GitHub workflows и review prompt
+
+Что не восстановится автоматически:
+- локальный вход в Codex/OpenAI/GitHub CLI
+- `.env` и секреты
+- payload из `runtime/`
+- локальные кэши и машинная времянка
+
+Проверка после clone:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/validate-context-pack.ps1
+```
+
 Что переносить:
 - весь репозиторий целиком
 - при необходимости локальные `.env` только для тех skills, которым реально нужны ключи

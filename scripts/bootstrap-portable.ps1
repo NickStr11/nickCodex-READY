@@ -32,6 +32,7 @@ Write-Host ''
 $pathsToCheck = @(
     'AGENTS.md',
     'README.md',
+    'CODEX-USAGE.md',
     'DAILY.md',
     'PORTABILITY.md',
     'memory/DEV_CONTEXT.md',
@@ -89,6 +90,7 @@ if (-not $SkipValidation) {
 Write-Host ''
 Write-Host 'Next steps:' -ForegroundColor Cyan
 Write-Host ' - Open AGENTS.md for agent rules.'
+Write-Host ' - Open CODEX-USAGE.md for Codex-specific session, subagent, handoff, and reflection flow.'
 Write-Host ' - Open DAILY.md for the short daily flow.'
 Write-Host ' - Use repo-recon on the next unfamiliar repository.'
 Write-Host ' - If the target system looks fragile, map contracts before refactoring.'
