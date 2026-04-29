@@ -30,6 +30,14 @@ skills/
 - `core/*/SKILL.md` или `optional/*/SKILL.md`
 - `core/*/agents/openai.yaml` или `optional/*/agents/openai.yaml`
 
+Repo-native discovery для Codex живёт отдельно в `.agents/skills/`.
+
+- Канонический источник истины остаётся в `skills/`.
+- `.agents/skills/*` — это сгенерированные wrapper-ы на канонические навыки.
+- После любых правок в `skills/` запускай `powershell -ExecutionPolicy Bypass -File scripts/sync-agent-skills.ps1`.
+- Не редактируй `.agents/skills/*` руками: следующая синхронизация всё перезапишет.
+- Для новых skill старайся выбирать достаточно уникальное `name`, чтобы не ловить коллизии с user/system skills.
+
 ## Core
 
 - `maintain-context-pack` — правка и валидация portable context pack
@@ -37,6 +45,7 @@ skills/
 - `daily-session` — старт или рестарт рабочей сессии через `memory/` и `inbox/`
 - `handoff-session` — короткий handoff в `memory/` и очистка текущего фокуса
 - `close-session` — один вход на конец сессии: handoff, backlog cleanup и capture если надо
+- `reflect-session` — синтез повторяющихся уроков из diary/session в устойчивые правила, memory или skills
 - `capture-to-knowledge` — раскладка полезных инсайтов по правильным долгоживущим файлам
 - `repo-recon` — быстрый вход в незнакомый репозиторий: стек, команды, entrypoints, hotspots и первый путь атаки
 

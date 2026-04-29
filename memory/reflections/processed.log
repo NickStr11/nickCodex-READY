@@ -1,0 +1,4 @@
+# processed reflection inputs
+#
+# Format:
+# relative/path/to/input.md<TAB>YYYY-MM-DD<TAB>reflection-note.md

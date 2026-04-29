@@ -11,7 +11,9 @@
 - Маленькая и понятная правка под одну цель.
 - Короткие, сканируемые документы вместо простыней.
 - Новый skill только если workflow реально повторился хотя бы 2-3 раза.
-- Для каждого нового skill обязательны `skills/core/*/SKILL.md` или `skills/optional/*/SKILL.md`, плюс рядом `agents/openai.yaml`.
+- Для каждого нового канонического skill обязательны `skills/core/*/SKILL.md` или `skills/optional/*/SKILL.md`, плюс рядом `agents/openai.yaml`.
+- Repo-native wrapper в `.agents/skills/*` руками не редактируется: он генерируется из `skills/` через `scripts/sync-agent-skills.ps1`.
+- Новым skill не давай слишком общее имя, если оно легко столкнётся с user/system skills в Codex.
 
 ## Границы слоёв
 
@@ -36,11 +38,20 @@
 powershell -ExecutionPolicy Bypass -File scripts/validate-context-pack.ps1
 ```
 
+Если менял что-то в `skills/`, сначала синхронизируй repo-native wrappers:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/sync-agent-skills.ps1
+powershell -ExecutionPolicy Bypass -File scripts/validate-context-pack.ps1
+```
+
 GitHub Actions в [`.github/workflows/validate-context-pack.yml`](.github/workflows/validate-context-pack.yml) гоняет ту же проверку на `push` и `pull_request`.
+PR review через [`.github/workflows/codex-review.yml`](.github/workflows/codex-review.yml) работает только если в репозитории настроен secret `OPENAI_API_KEY`.
 
 ## Pull Request bar
 
 - Один PR = одна внятная цель.
 - Если переносишь или переименовываешь файлы, сразу почини ссылки.
 - Если меняешь operational-слой в `.github/`, держи его без привязки к локальной машине.
+- Если меняешь `code_review.md` или `.github/codex/prompts/review.md`, проверь, что review workflow и README всё ещё согласованы.
 - Если правка меняет живой статус repo, обнови `memory/DEV_CONTEXT.md`.

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Exa First Research"
+  short_description: "Route research through Exa first"
+  default_prompt: "Use $exa-research to do Exa-first research, then switch to Context7 or Read GitHub only if the findings point to a library or repository that needs deeper inspection."

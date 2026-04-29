@@ -7,17 +7,23 @@ $requiredPaths = @(
     'AGENTS.md',
     'CLAUDE.md',
     'README.md',
+    'CODEX-USAGE.md',
     'PORTABILITY.md',
     'DAILY.md',
     'LICENSE',
     'CONTRIBUTING.md',
+    'code_review.md',
     'resume.ps1',
     'new-project.ps1',
     'new-memory-repo.ps1',
     'doctor.ps1',
     '.editorconfig',
+    '.agents/AGENTS.md',
+    '.agents/skills/README.md',
     '.github/AGENTS.md',
+    '.github/codex/prompts/review.md',
     '.github/workflows/validate-context-pack.yml',
+    '.github/workflows/codex-review.yml',
     '.github/ISSUE_TEMPLATE/config.yml',
     '.github/ISSUE_TEMPLATE/project-intake.yml',
     '.github/ISSUE_TEMPLATE/skill-request.yml',
@@ -36,6 +42,7 @@ $requiredPaths = @(
     'rules/agent-behavior.md',
     'rules/work-style.md',
     'rules/code-style.md',
+    'rules/subagents.md',
     'skills/AGENTS.md',
     'skills/README.md',
     'skills/core/README.md',
@@ -47,6 +54,8 @@ $requiredPaths = @(
     'memory/PROJECT_CONTEXT.md',
     'memory/DEV_CONTEXT.md',
     'memory/diary/README.md',
+    'memory/reflections/README.md',
+    'memory/reflections/processed.log',
     'memory/sessions/README.md',
     'inbox/AGENTS.md',
     'inbox/README.md',
@@ -66,6 +75,7 @@ $requiredPaths = @(
     'scripts/new-memory-repo.ps1',
     'scripts/doctor.ps1',
     'scripts/smoke-codex-subagents.ps1',
+    'scripts/sync-agent-skills.ps1',
     'scripts/sync-project-subagents.ps1',
     'scripts/validate-project-context.ps1',
     'templates/README.md',
@@ -85,6 +95,8 @@ $requiredPaths = @(
     'templates/project-starter/memory/PROJECT_CONTEXT.md',
     'templates/project-starter/memory/DEV_CONTEXT.md',
     'templates/project-starter/memory/diary/README.md',
+    'templates/project-starter/memory/reflections/README.md',
+    'templates/project-starter/memory/reflections/processed.log',
     'templates/project-starter/inbox/now.md',
     'templates/project-starter/inbox/backlog.md',
     'templates/project-starter/runtime/research/README.md',
@@ -150,6 +162,7 @@ $publicDirsRequiringReadme = @(
     'skills',
     'knowledge',
     'memory',
+    'memory/reflections',
     'inbox',
     'runtime',
     'runbooks',
@@ -358,6 +371,7 @@ Test-ContentHasPatterns -RelativePath 'PORTABILITY.md' -Patterns @('bootstrap-po
 Test-AliasFile -RelativePath 'CLAUDE.md'
 Test-ContentHasPatterns -RelativePath '.codex/config.toml' -Patterns @('(?s)\[features\].*?multi_agent\s*=\s*true', '(?s)\[agents\].*?max_threads\s*=\s*\d+', '(?s)\[agents\].*?max_depth\s*=\s*\d+') -ErrorPrefix 'Codex subagent config is incomplete'
 Test-ContentHasPatterns -RelativePath '.codex/agents/docs-researcher.toml' -Patterns @('(?s)\[mcp_servers\.openaiDeveloperDocs\].*?https://developers\.openai\.com/mcp') -ErrorPrefix 'docs_researcher MCP wiring is incomplete'
+Test-ContentHasPatterns -RelativePath '.github/workflows/codex-review.yml' -Patterns @('openai/codex-action@v1', '\.github/codex/prompts/review\.md', 'workspace-write') -ErrorPrefix 'Codex review workflow is incomplete'
 Test-ContentHasPatterns -RelativePath 'templates/project-starter/.codex/config.toml' -Patterns @('(?s)\[features\].*?multi_agent\s*=\s*true', '(?s)\[agents\].*?max_threads\s*=\s*\d+', '(?s)\[agents\].*?max_depth\s*=\s*\d+') -ErrorPrefix 'Project starter Codex subagent config is incomplete'
 Test-ContentHasPatterns -RelativePath 'templates/project-starter/.codex/agents/docs-researcher.toml' -Patterns @('(?s)\[mcp_servers\.openaiDeveloperDocs\].*?https://developers\.openai\.com/mcp') -ErrorPrefix 'Project starter docs_researcher MCP wiring is incomplete'
 
@@ -458,6 +472,19 @@ foreach ($skillDir in $skillDirs) {
         if ($uiContent -notmatch '(?m)^\s*default_prompt:\s*.+$') {
             $errors.Add("Missing default_prompt in skill UI metadata: $skillPath/agents/openai.yaml")
         }
+    }
+}
+
+$syncAgentSkillsScript = Join-Path $repoRoot 'scripts/sync-agent-skills.ps1'
+if (Test-Path -LiteralPath $syncAgentSkillsScript) {
+    try {
+        & $syncAgentSkillsScript -Check | Out-Null
+        if ($LASTEXITCODE -ne 0) {
+            $errors.Add('Repo-native skill wrappers are missing or out of sync. Run scripts/sync-agent-skills.ps1')
+        }
+    }
+    catch {
+        $errors.Add("Repo-native skill sync check failed: $($_.Exception.Message)")
     }
 }
 

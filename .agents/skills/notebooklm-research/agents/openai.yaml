@@ -1,0 +1,4 @@
+interface:
+  display_name: "NotebookLM Research"
+  short_description: "Create NotebookLM notebooks and save project-local research bundles"
+  default_prompt: "Use $notebooklm-research to create a NotebookLM research bundle from these sources, save it into the current project's runtime/research, and write a clean summary.md."

@@ -33,9 +33,11 @@
 Подгружать только по необходимости:
 - `memory/PROJECT_CONTEXT.md` — если задача относится к текущему живому проекту или треку
 - `memory/DEV_CONTEXT.md` — если нужен последний статус, свежие решения, known issues и временные рабочие договорённости
+- `memory/reflections/` — если нужно понять, какие повторяющиеся уроки уже были синтезированы из diary/session
 - `inbox/now.md` — если нужно быстро понять текущий активный трек и ближайшие действия
 - `inbox/backlog.md` — если нужно разобрать входящие идеи, хвосты и отложенные штуки
 - `DAILY.md` — если нужен короткий ежедневный golden path без чтения всего README
+- `CODEX-USAGE.md` — если нужно понять режим Codex-сессий, subagents, handoff и reflection
 - `PORTABILITY.md` — если задача про перенос на другой комп или быстрый подъём среды
 - `runbooks/openclaw/*` — если задача про второй ноут, OpenClaw rollout или WSL fallback
 - `scripts/bootstrap-portable.ps1` — если надо быстро проверить готовность среды на новом компе
@@ -43,13 +45,16 @@
 - `deep-values.md` — конфликты ценностей, антиценности, внутренняя мотивация
 - `deep-philosophy.md` — философские рамки, интерпретация, стиль мышления
 - `skills/README.md` — если оформляются навыки или reusable workflows
+- `code_review.md` — если задача про review, audit или PR review automation
 - `rules/code-style.md` — если задача техническая и нужны правила по качеству и виду кода
+- `rules/subagents.md` — если задача про delegation, parallel agents или model routing
 - `knowledge/*` — только когда реально нужен долговечный и переиспользуемый ресёрч-контекст
 - `runtime/*` — только если нужны сырые импорты, временные файлы, выгрузки или scratch-артефакты
 
 ## Карта проекта
 
 - `README.md` — quick start для человека
+- `CODEX-USAGE.md` — короткий мануал по работе именно с Codex в этом pack
 - `PORTABILITY.md` — сценарий переезда на другой комп и quick boot
 - `DAILY.md` — короткий daily flow без философии
 - `CLAUDE.md` — совместимый алиас для Claude Code, не второй источник истины
@@ -58,6 +63,8 @@
 - `.github/` — CI, issue templates и PR template
 - `.codex/config.toml` — project config для Codex
 - `.codex/agents/` — project-scoped custom subagents для parallel workflows и узких ролей
+- `.agents/skills/` — repo-native skill discovery wrappers, синкаются из `skills/`
+- `code_review.md` — review contract для людей и Codex PR review
 - `resume.ps1` — быстрый вход в текущий project-local repo
 - `new-project.ps1` — bootstrap нового project-local repo рядом с этим pack
 - `doctor.ps1` — проверка tooling, env и минимального project-local context
@@ -70,6 +77,7 @@
 - `runbooks/` — редкие сценарные runbooks и миграции, которые не нужны в daily root
 - `templates/` — starter-шаблоны для новых project-local repo
 - `scripts/validate-context-pack.ps1` — проверка структуры и ссылок
+- `scripts/sync-agent-skills.ps1` — синхронизация канонических skills в `.agents/skills/`
 - `scripts/bootstrap-portable.ps1` — быстрая проверка переносимости и доступных инструментов
 
 ## Базовый режим ответа
@@ -92,9 +100,12 @@
 5. Если пользователь дал путь, репо или файл — сначала смотри это, потом рассуждай.
 6. Если можно показать пример, команду, патч или код — показывай.
 7. Если задача упирается в среду, права или зависимости — говори это прямо.
+8. Если создаёшь новый project-local repo через `new-project.ps1`, сразу заполни в нём `memory/PROJECT_CONTEXT.md` и `inbox/now.md` из запроса пользователя; не оставляй `[fill]`, если контекст можно вывести из задачи.
 
 ## Subagent Routing
 
+- Standing preference: Никита хочет, чтобы Codex активнее использовал subagents и сам решал, когда задача выше порога для делегирования.
+- Если runtime требует явного разрешения на delegation/parallel agents и его ещё нет в текущей сессии, спроси коротко один раз.
 - Если задача явно подходит под project-scoped subagents из `.codex/agents/`, используй их проактивно, даже если пользователь не назвал их руками.
 - `repo_recon` — первый проход по чужому или большому repo: стек, entrypoints, execution path, hotspots, attack path.
 - `security_reviewer` — security review, hardening, секреты, auth, unsafe defaults, network/deploy risk.
@@ -122,6 +133,7 @@
 
 ## Validation
 
+- После правок в `skills/` сначала запускай `powershell -ExecutionPolicy Bypass -File scripts/sync-agent-skills.ps1`.
 - После изменений в структуре или документации запускай `powershell -ExecutionPolicy Bypass -File scripts/validate-context-pack.ps1`.
 - На GitHub та же проверка должна проходить через `.github/workflows/validate-context-pack.yml`.
 - Если правка ломает ссылки или обязательные файлы, сначала фикс, потом финальный ответ.

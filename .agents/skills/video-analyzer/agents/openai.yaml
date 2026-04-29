@@ -1,0 +1,4 @@
+interface:
+  display_name: "Video Analyzer"
+  short_description: "NotebookLM-first video analysis with fallback"
+  default_prompt: "Use $video-analyzer to analyze this video, these videos, or this channel. For a single video, try NotebookLM first if auth is healthy; otherwise fall back to the local pipeline. Save artifacts in the current project's runtime/research and write a final summary.md."

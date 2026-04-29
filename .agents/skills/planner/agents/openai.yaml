@@ -1,0 +1,4 @@
+interface:
+  display_name: "Planner"
+  short_description: "Draft phased implementation plans"
+  default_prompt: "Use $planner to create a phased implementation plan only when the user explicitly asks for planning."

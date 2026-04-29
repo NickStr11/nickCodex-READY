@@ -42,5 +42,5 @@ Write-Host $projectRoot
 Write-Host ''
 Write-Host 'Next:' -ForegroundColor Cyan
 Write-Host "1. cd $projectRoot"
-Write-Host '2. Fill memory/PROJECT_CONTEXT.md'
+Write-Host '2. Fill memory/PROJECT_CONTEXT.md and inbox/now.md before real work'
 Write-Host '3. Run .\resume.ps1'

@@ -2,6 +2,14 @@
 
 Это project-local репозиторий `{{PROJECT_NAME}}`.
 
+## Первый запуск
+
+Если этот repo только что создан из `nickCodex-READY`, сначала заполни:
+- `memory/PROJECT_CONTEXT.md` — цель, рамка, scope, ограничения
+- `inbox/now.md` — один текущий фокус и 1-3 ближайших действия
+
+Не начинай содержательную работу, пока эти файлы не отражают запрос пользователя. Не оставляй `[fill]`, если контекст можно вывести из задачи.
+
 ## С чего начинать
 
 Читать в таком порядке:
@@ -16,6 +24,7 @@
 - долгоживущая рамка проекта -> `memory/PROJECT_CONTEXT.md`
 - текущий фокус -> `inbox/now.md`
 - история завершённых сессий -> `memory/diary/`
+- повторяющиеся уроки из diary/session -> `memory/reflections/`
 - свежие решения, blockers, next step -> сначала `memory/diary/`, а `memory/DEV_CONTEXT.md` только как переходный слой
 - отложенные идеи -> `inbox/backlog.md`
 - сырой research и времянка -> `runtime/`
@@ -26,6 +35,7 @@
 - не дублируй одно и то же в нескольких файлах
 - код живёт в самом проекте, а не в файлах памяти
 - не превращай `memory/DEV_CONTEXT.md` в бесконечный worklog
+- reflection-проходы отмечай в `memory/reflections/processed.log`
 
 ## Subagent Routing
 

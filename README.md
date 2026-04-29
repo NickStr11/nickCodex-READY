@@ -13,6 +13,7 @@
 - `.\doctor.ps1` — проверяет tooling, env и минимальный project-local context
 - `powershell -ExecutionPolicy Bypass -File scripts/smoke-codex-subagents.ps1` — проверяет `.codex/` config, custom agents и живой Codex runtime
 - `powershell -ExecutionPolicy Bypass -File scripts/sync-project-subagents.ps1` — синхронизирует `.codex/` subagent layer в соседние project-local repo
+- `powershell -ExecutionPolicy Bypass -File scripts/sync-agent-skills.ps1` — синхронизирует repo-native wrappers в `.agents/skills/` из канонического `skills/`
 - `.\setup-openclaw-laptop.ps1` — быстрый bootstrap второго ноута под Codex + OpenClaw
 - `.\finalize-openclaw-laptop.ps1` — добивает OpenClaw после логина вторым Codex-аккаунтом
 - `powershell -ExecutionPolicy Bypass -File scripts/validate-project-context.ps1 -TargetPath <path>` — валидирует project-local scaffold
@@ -31,6 +32,20 @@
 - Agent-specific MCP wiring lives in the matching `.codex/agents/*.toml` file.
 - After changing `.codex/`, run `.\doctor.ps1` or `scripts/smoke-codex-subagents.ps1`.
 
+## Skills
+
+- Canonical reusable skills live in `skills/`.
+- Repo-native Codex discovery lives in `.agents/skills/`.
+- `.agents/skills/*` are generated wrappers, not a second source of truth.
+- After changing any skill, run `scripts/sync-agent-skills.ps1`, then `scripts/validate-context-pack.ps1`.
+- When naming a new skill, avoid generic names that can collide with user or system skills in Codex selectors.
+
+## Review
+
+- `code_review.md` holds the review contract for humans and Codex.
+- `.github/workflows/codex-review.yml` runs PR review through `openai/codex-action@v1`.
+- To enable the workflow, add the repository secret `OPENAI_API_KEY`.
+
 ## Quick Start
 
 ```powershell
@@ -45,6 +60,7 @@ cd D:\path\to\nickCodex-READY
 Если менялась структура или документация:
 
 ```powershell
+powershell -ExecutionPolicy Bypass -File scripts/sync-agent-skills.ps1
 powershell -ExecutionPolicy Bypass -File scripts/validate-context-pack.ps1
 ```
 

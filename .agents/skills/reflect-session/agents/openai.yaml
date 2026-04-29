@@ -1,0 +1,4 @@
+interface:
+  display_name: "Reflect Session"
+  short_description: "Turn repeated session lessons into durable rules"
+  default_prompt: "Use $reflect-session to synthesize recent diary and session notes into durable rules, memory updates, or backlog cleanup without bloating the root contract."

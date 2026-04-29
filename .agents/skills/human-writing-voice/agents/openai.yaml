@@ -1,0 +1,4 @@
+interface:
+  display_name: "Human Writing Voice"
+  short_description: "Rewrite text to sound lived-in, human, and less AI"
+  default_prompt: "Use $human-writing-voice to rewrite text so it feels more alive, conversational, and true to the user's voice instead of generic AI prose."

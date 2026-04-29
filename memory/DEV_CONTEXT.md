@@ -6,11 +6,13 @@
 
 ## Последнее обновление
 
-- Дата: 2026-03-18
-- Last verified from: локальный repo state, SSH-сессия на ноут `Main`, remote OpenClaw config/logs
+- Дата: 2026-04-07
+- Last verified from: локальный repo state, official OpenAI Codex docs по skills / GitHub Action / hooks, archived `kwork` retrospective
 
 ## Текущая правда
 
+- Репо теперь закрывает repo-native Codex skill discovery по официальному пути `.agents/skills/`: wrapper-ы генерируются из канонического `skills/` через `scripts/sync-agent-skills.ps1`, а их целостность проверяет `scripts/validate-context-pack.ps1`.
+- Для review добавлены `code_review.md`, `.github/codex/prompts/review.md` и `.github/workflows/codex-review.yml` под `openai/codex-action@v1`; Windows hooks пока не включались, потому что по официальной документации этот слой сейчас не рабочий на Windows.
 - Репо уже оформлено как portable context pack: `memory/`, `runtime/`, `inbox/`, `CLAUDE.md`, CI, issue templates, PR template, `LICENSE`, `.gitignore`, `.gitattributes`.
 - В project config включён multi-agent режим: `.codex/config.toml` держит `[agents]` с `max_threads = 6`, `max_depth = 1`, `job_max_runtime_seconds = 1800`.
 - В `.codex/agents/` есть project-scoped subagents: `repo_recon`, `security_reviewer`, `docs_researcher`, `browser_debugger`, `targeted_fixer`.
@@ -31,6 +33,10 @@
 - `runtime/` — сырые логи, дампы, выгрузки и временные артефакты; не держать это в active memory.
 
 ## Свежие решения
+
+- Что: live трек `kwork` заморожен как retrospective snapshot, а не как активный автопилот.
+  Зачем: по факту reusable оказались collector/discovery/state/inbox-слой, а полный auto-first-touch сломался на тоне и product fit.
+  Источник/дата: `D:\code\2026\3\kwork\memory\RETROSPECTIVE-2026-03-22.md`, 2026-03-22.
 
 - Что: `Hindsight` на втором ноуте оставлен выключенным.
   Зачем: native Windows path упирается в несовместимость зависимостей и не даёт стабильный runtime.

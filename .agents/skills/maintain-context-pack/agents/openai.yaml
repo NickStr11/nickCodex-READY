@@ -1,0 +1,4 @@
+interface:
+  display_name: "Maintain Context Pack"
+  short_description: "Update and validate agent context packs"
+  default_prompt: "Use $maintain-context-pack to update AGENTS, local instructions, and validation for this repository."

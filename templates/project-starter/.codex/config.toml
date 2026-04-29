@@ -5,6 +5,8 @@ sandbox_mode = "workspace-write"
 project_doc_max_bytes = 32768
 cli_auth_credentials_store = "file"
 developer_instructions = """
+Nikita has a standing preference for active subagent use. For tasks above the threshold, decide whether to delegate without waiting for him to name exact agents.
+If the current runtime requires explicit user permission for delegation or parallel agents and it has not been granted in the current session, ask once, briefly, before spawning.
 For larger read-heavy, review-heavy, or debugging tasks, spawn the matching project-scoped custom agent instead of keeping all work in the parent thread.
 When the user asks for repo analysis, review, docs verification, browser debugging, or a bounded local fix, choose the matching custom agent without waiting for the exact agent name.
 Use repo_recon for codebase mapping, entrypoints, attack paths, and first-pass repo understanding.

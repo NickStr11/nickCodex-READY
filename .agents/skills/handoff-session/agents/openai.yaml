@@ -1,0 +1,4 @@
+interface:
+  display_name: "Handoff Session"
+  short_description: "Close a session with clean handoff"
+  default_prompt: "Use $handoff-session to summarize progress, blockers, and next steps into memory and session notes."

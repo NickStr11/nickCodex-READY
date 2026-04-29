@@ -1,0 +1,4 @@
+interface:
+  display_name: "Capture To Knowledge"
+  short_description: "Store reusable insight in the right place"
+  default_prompt: "Use $capture-to-knowledge to turn useful chat, research, or output into the right long-lived project file."
