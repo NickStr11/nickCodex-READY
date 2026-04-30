@@ -6,11 +6,17 @@
 
 ## Последнее обновление
 
-- Дата: 2026-04-07
-- Last verified from: локальный repo state, official OpenAI Codex docs по skills / GitHub Action / hooks, archived `kwork` retrospective
+- Дата: 2026-04-30
+- Last verified from: локальный repo state, GitHub push to `origin/main`, Cortex/Claude architecture comparison, Obsidian profile symlink check
 
 ## Текущая правда
 
+- `nickCodex-READY` hardening запушен в GitHub до commit `9406979 feat: add obsidian profile snapshot sync`.
+- Добавлен Codex usage/restore слой: `CODEX-USAGE.md`, `RESTORE-CHECKLIST.md`, `rules/subagents.md`, `memory/reflections/`, `$reflect-session`.
+- Никита зафиксировал standing preference: Codex должен активнее использовать subagents сам по порогу задачи, если runtime позволяет; если runtime требует явного разрешения, спросить один раз.
+- Obsidian `GameChanger\AI\` — канон личного профиля; repo хранит portable snapshots `aboutme.md`, `deep-values.md`, `deep-philosophy.md`, `writing-style.md`.
+- Для обновления snapshots добавлен `scripts/sync-profile-from-obsidian.ps1`; absolute symlink-и из repo на Obsidian path не использовать.
+- Локальный `runtime/scratch/chrome-auth-copy/` удалён как тяжёлый scratch-хвост; `runtime/lis_skins_snapshot.json` остался untracked payload.
 - Репо теперь закрывает repo-native Codex skill discovery по официальному пути `.agents/skills/`: wrapper-ы генерируются из канонического `skills/` через `scripts/sync-agent-skills.ps1`, а их целостность проверяет `scripts/validate-context-pack.ps1`.
 - Для review добавлены `code_review.md`, `.github/codex/prompts/review.md` и `.github/workflows/codex-review.yml` под `openai/codex-action@v1`; Windows hooks пока не включались, потому что по официальной документации этот слой сейчас не рабочий на Windows.
 - Репо уже оформлено как portable context pack: `memory/`, `runtime/`, `inbox/`, `CLAUDE.md`, CI, issue templates, PR template, `LICENSE`, `.gitignore`, `.gitattributes`.
