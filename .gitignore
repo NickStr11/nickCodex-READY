@@ -53,6 +53,7 @@ runtime/outputs/**
 runtime/research/**
 !runtime/research/
 !runtime/research/README.md
+!runtime/research/RECON-TEMPLATE.md
 
 runtime/scratch/**
 !runtime/scratch/

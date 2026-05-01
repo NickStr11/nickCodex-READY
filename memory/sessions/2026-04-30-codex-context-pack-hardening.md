@@ -19,7 +19,7 @@
 - Добавлен restore/portability слой:
   - `RESTORE-CHECKLIST.md`
   - GitHub clone flow в `README.md` и `PORTABILITY.md`
-  - `bootstrap-portable.ps1` проверяет `CODEX-USAGE.md`
+  - `scripts/bootstrap-portable.ps1` проверяет `CODEX-USAGE.md`
 - Добавлен profile snapshot sync:
   - `scripts/sync-profile-from-obsidian.ps1`
   - docs в `README.md`, `PORTABILITY.md`, `CONTRIBUTING.md`

@@ -14,7 +14,7 @@
 
 - Старый путь `D:/code/2026/3/steam-sniper-OLD-do-not-use/` deprecated.
 - Production URL: `http://72.56.37.150`.
-- `tools/steam-sniper/CODEX_TASK.md` теперь обновлён и должен направлять агентов в правильный monorepo.
+- `D:/code/2026/2/cortex/tools/steam-sniper/CODEX_TASK.md` теперь обновлён и должен направлять агентов в правильный monorepo.
 - Wear/exterior баг: lis-skins item page иногда отдаёт name без `(Field-Tested)` и т.п.; без защиты backend мог выбрать другой wear.
 - Текущий подход: extension достаёт wear из URL, шлёт `source_url`; backend early-augment делает `item_name + (wear)` до `_resolve_item_name`; если ambiguous остаётся, возвращает `400 wear_required`.
 - Namespace isolation: обычные, `StatTrak™`, `Souvenir`, `★` варианты не должны смешиваться.
@@ -22,15 +22,15 @@
 
 ## Текущий dirty state в Cortex
 
-- Modified: `tools/steam-sniper/CODEX_TASK.md`.
-- Modified: `tools/steam-sniper/extension/background.js`.
-- Modified: `tools/steam-sniper/extension/content.js`.
-- Modified: `tools/steam-sniper/extension/manifest.json`.
-- Modified: `tools/steam-sniper/main.py`.
-- Modified: `tools/steam-sniper/server.py`.
-- Modified: `tools/steam-sniper/tests/test_api.py`.
-- Untracked: `tools/steam-sniper/scripts/fix_ambiguous_wear.py`.
-- Untracked: `tools/steam-sniper/tests/test_wear_resolution.py`.
+- Modified: `D:/code/2026/2/cortex/tools/steam-sniper/CODEX_TASK.md`.
+- Modified: `D:/code/2026/2/cortex/tools/steam-sniper/extension/background.js`.
+- Modified: `D:/code/2026/2/cortex/tools/steam-sniper/extension/content.js`.
+- Modified: `D:/code/2026/2/cortex/tools/steam-sniper/extension/manifest.json`.
+- Modified: `D:/code/2026/2/cortex/tools/steam-sniper/main.py`.
+- Modified: `D:/code/2026/2/cortex/tools/steam-sniper/server.py`.
+- Modified: `D:/code/2026/2/cortex/tools/steam-sniper/tests/test_api.py`.
+- Untracked: `D:/code/2026/2/cortex/tools/steam-sniper/scripts/fix_ambiguous_wear.py`.
+- Untracked: `D:/code/2026/2/cortex/tools/steam-sniper/tests/test_wear_resolution.py`.
 
 ## Следующий вход
 

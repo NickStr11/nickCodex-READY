@@ -135,6 +135,8 @@
 
 - После правок в `skills/` сначала запускай `powershell -ExecutionPolicy Bypass -File scripts/sync-agent-skills.ps1`.
 - После изменений в структуре или документации запускай `powershell -ExecutionPolicy Bypass -File scripts/validate-context-pack.ps1`.
+- Если задача ссылается на прошлые сессии, diary, handoff или research, сам запускай `powershell -ExecutionPolicy Bypass -File scripts/search-session-notes.ps1 -Query "<запрос>"`; не проси Никиту помнить эту команду.
+- Если задача про чистку context pack, stale/duplicate skills, broken refs или локальные абсолютные пути, сам запускай `powershell -ExecutionPolicy Bypass -File scripts/scan-context-pack-health.ps1`.
 - На GitHub та же проверка должна проходить через `.github/workflows/validate-context-pack.yml`.
 - Если правка ломает ссылки или обязательные файлы, сначала фикс, потом финальный ответ.
 

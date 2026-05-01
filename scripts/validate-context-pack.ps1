@@ -68,6 +68,7 @@ $requiredPaths = @(
     'runtime/imports/youtube-raw/README.md',
     'runtime/outputs/README.md',
     'runtime/research/README.md',
+    'runtime/research/RECON-TEMPLATE.md',
     'runtime/scratch/README.md',
     'aboutme.md',
     'scripts/bootstrap-portable.ps1',
@@ -79,6 +80,8 @@ $requiredPaths = @(
     'scripts/sync-profile-from-obsidian.ps1',
     'scripts/sync-agent-skills.ps1',
     'scripts/sync-project-subagents.ps1',
+    'scripts/scan-context-pack-health.ps1',
+    'scripts/search-session-notes.ps1',
     'scripts/validate-project-context.ps1',
     'templates/README.md',
     'templates/project-starter/AGENTS.md',
@@ -200,7 +203,7 @@ function Test-ExternalReference {
         [string]$Value
     )
 
-    return $Value -match '^(https?://|mailto:|~|[A-Za-z]:\\|/|#)'
+    return $Value -match '^(https?://|mailto:|~|[A-Za-z]:[\\/]|/|#)'
 }
 
 function Should-CheckReference {
@@ -491,6 +494,23 @@ if (Test-Path -LiteralPath $syncAgentSkillsScript) {
     }
 }
 
+$healthScanSummary = $null
+$healthScanScript = Join-Path $repoRoot 'scripts/scan-context-pack-health.ps1'
+if (Test-Path -LiteralPath $healthScanScript) {
+    try {
+        $healthJson = & $healthScanScript -Json | Out-String
+        if ($LASTEXITCODE -ne 0) {
+            $errors.Add('Context pack health scan failed. Run scripts/scan-context-pack-health.ps1')
+        }
+        else {
+            $healthScanSummary = $healthJson | ConvertFrom-Json
+        }
+    }
+    catch {
+        $errors.Add("Context pack health scan failed: $($_.Exception.Message)")
+    }
+}
+
 $docs = [System.Collections.Generic.List[System.IO.FileInfo]]::new()
 $git = Get-Command git -ErrorAction SilentlyContinue
 
@@ -563,6 +583,16 @@ if ($errors.Count -gt 0) {
         Write-Host " - $_"
     }
     exit 1
+}
+
+if ($healthScanSummary -and $healthScanSummary.counts) {
+    $counts = $healthScanSummary.counts
+    Write-Host ("Health scan: {0} skill(s), {1} stale, {2} duplicate concept(s), {3} broken ref(s), {4} local-only ref(s)." -f `
+        $counts.skills, `
+        $counts.stale_skills, `
+        $counts.duplicate_concepts, `
+        $counts.broken_refs, `
+        $counts.local_only_refs) -ForegroundColor Cyan
 }
 
 Write-Host 'Validation passed.' -ForegroundColor Green

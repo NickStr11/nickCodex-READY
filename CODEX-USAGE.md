@@ -18,6 +18,18 @@
 
 Codex должен прочитать `AGENTS.md`, базовые правила, `aboutme.md`, а живую память грузить только по необходимости.
 
+## Автопилот проверок
+
+Никита не должен руками помнить служебные команды. Codex сам запускает нужный read-only helper, когда задача подходит:
+
+- если пользователь ссылается на прошлые сессии, diary, handoff, “мы уже делали”, “помнишь”, “найди где” — запустить `scripts/search-session-notes.ps1` с подходящим `-Query`;
+- если работа касается внешнего repo/research — использовать `runtime/research/RECON-TEMPLATE.md` и сохранить заметку в `runtime/research/`;
+- если менялись структура, docs, scripts, context layers или reusable workflow — запустить `scripts/validate-context-pack.ps1`;
+- если задача про чистку/качество context pack, skills, broken refs или локальные абсолютные пути — запустить `scripts/scan-context-pack-health.ps1`;
+- если менялись `skills/` — сначала `scripts/sync-agent-skills.ps1`, потом `scripts/validate-context-pack.ps1`.
+
+Команды ниже существуют для Codex и CI, не как ручной UX для Никиты.
+
 ## Субагенты
 
 Никита даёт standing preference: Codex может сам запускать субагентов на своё усмотрение, если задача достаточно большая, read-heavy, review-heavy, research-heavy или хорошо делится на независимые куски.
@@ -54,6 +66,25 @@ Codex должен прочитать `AGENTS.md`, базовые правила
 - мелкая правка одного файла
 - задача требует частого диалога с пользователем
 - следующий шаг зависит от результата прямо сейчас и быстрее сделать самому
+
+## Внешний repo recon
+
+Для чужого repo или внешнего проекта:
+
+1. Клонировать или выгрузить источник в `runtime/research/<repo-slug>-src/`.
+2. Зафиксировать checked commit/version.
+3. Проверять claims по source files, не только README.
+4. Сохранять короткую заметку по `runtime/research/RECON-TEMPLATE.md`.
+5. Делить вывод на `можно внедрить`, `изучить глубже`, `не переносить`.
+
+Root contract не раздувать. Если идея reusable, сначала оставить её в recon/report, потом отдельно решить, куда она принадлежит: `CODEX-USAGE.md`, `rules/`, `skills/`, `memory/`, `knowledge/` или `scripts/`.
+
+Read-only helpers:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/scan-context-pack-health.ps1
+powershell -ExecutionPolicy Bypass -File scripts/search-session-notes.ps1 -Query "hermes"
+```
 
 ## Завершение
 

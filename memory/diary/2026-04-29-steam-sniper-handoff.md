@@ -7,7 +7,7 @@
 - Подтверждено, что старый `D:/code/2026/3/steam-sniper/` переименован в `steam-sniper-OLD-do-not-use`.
 - Проверили итерации по wear/exterior: extension v1.4, `source_url`, backend fail-loud, namespace separation.
 - Проверили тесты в production repo: `uv run pytest -q` -> `116 passed`.
-- `CODEX_TASK.md` в production repo обновлён на новый VPS `72.56.37.150`.
+- `D:/code/2026/2/cortex/tools/steam-sniper/CODEX_TASK.md` в production repo обновлён на новый VPS `72.56.37.150`.
 
 ## Решения
 
