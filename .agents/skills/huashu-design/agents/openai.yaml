@@ -1,0 +1,4 @@
+interface:
+  display_name: "Huashu Design"
+  short_description: "Use brand-aware HTML-first design workflows"
+  default_prompt: "Use $huashu-design to create a polished, brand-aware visual artifact with anti-AI-slop design discipline."

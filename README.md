@@ -40,6 +40,7 @@
 - `.agents/skills/*` are generated wrappers, not a second source of truth.
 - After changing any skill, run `scripts/sync-agent-skills.ps1`, then `scripts/validate-context-pack.ps1`.
 - When naming a new skill, avoid generic names that can collide with user or system skills in Codex selectors.
+- `skills/optional/huashu-design` is a lightweight personal-use derivative inspired by [`alchaincyf/huashu-design`](https://github.com/alchaincyf/huashu-design), checked at `23f60d9b4304f20851469987c6e2c92242b94a45`. Upstream is Personal Use Only; this repo does not vendor upstream assets, scripts, demos, audio, or full skill text.
 
 ## Profile Snapshot
 

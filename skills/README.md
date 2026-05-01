@@ -64,6 +64,7 @@ Repo-native discovery для Codex живёт отдельно в `.agents/skill
 - `human-writing-voice` — перепись текста в более живой и менее AI-вылизанный голос
 - `frontend-design` — сильный визуальный фронтенд
 - `frontend-responsive-ui` — mobile-first и responsive quality bar
+- `huashu-design` — Huashu-inspired HTML-first design workflow: brand assets, variants, decks, infographics, critique
 - `vercel-react-best-practices` — performance-паттерны для React/Next.js
 
 ## Правило против расползания

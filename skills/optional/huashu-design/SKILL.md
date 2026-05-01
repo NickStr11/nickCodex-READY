@@ -1,0 +1,122 @@
+---
+name: huashu-design
+description: Apply Huashu Design-inspired workflows for high-fidelity HTML-first design work: branded prototypes, editorial pages, slide decks, infographics, motion demos, design variants, and design critique. Use when the user asks for a polished visual artifact, wants "like Huashu/Claude Design", asks for multiple design directions, brand-aware design, anti-AI-slop design, HTML-to-PDF/PPT/video-style output, or expert design review.
+---
+
+# Huashu Design
+
+Lightweight personal-use adaptation of `alchaincyf/huashu-design`.
+
+Source: `https://github.com/alchaincyf/huashu-design` checked at
+`23f60d9b4304f20851469987c6e2c92242b94a45`.
+
+License note: upstream is Personal Use Only. Do not copy upstream assets,
+scripts, demos, audio, or large text into public/commercial work. Use this
+skill as a workflow adapter and attribution layer. For full upstream behavior,
+install/use upstream directly and respect its license.
+
+## Core Mode
+
+HTML is the production canvas, not the final medium. Match the artifact:
+
+- prototype: think like a product/UX designer
+- landing/page: think like a visual/web designer
+- slide deck: think like a presentation designer
+- infographic: think like an editorial/data designer
+- animation: think like a motion designer
+- critique: think like an art director
+
+Do not make every output look like a webpage.
+
+## Fact And Asset Verification First
+
+Before designing for a named brand, product, person, venue, or current object:
+
+1. Verify the thing exists and what version/state is current.
+2. Ask for existing assets once: logo, screenshots, brand guidelines, product photos, Figma/design system, color/font rules.
+3. If assets are not provided and the task needs real brand fidelity, search official sources before designing.
+4. Extract from real assets: logo, product/UI imagery, palette, type clues, signature details, forbidden moves.
+5. Write a small local `brand-spec` in the working artifact or notes before using colors.
+
+Never guess brand colors or draw fake product silhouettes when a real product/logo/screenshot is required.
+
+## Design Direction Advisor
+
+Use when the request is vague: "make it beautiful", "design this", "not sure what style", no brand/design context.
+
+1. Offer 3 distinct directions from different visual families.
+2. For each direction give: name, mood, typography, color behavior, density, motion/interaction idea, risks.
+3. Build a quick low-cost demo or first screen for the strongest direction if the user wants action now.
+4. After direction is chosen, continue with the normal production flow.
+
+Do not pretend there is one objectively correct style.
+
+## Junior Designer Flow
+
+Default workflow:
+
+1. State assumptions and missing assets briefly.
+2. Create a rough but visible first pass early.
+3. Prefer 3+ variations over one "final answer" when visual direction is uncertain.
+4. Iterate from user feedback.
+5. Verify in browser/rendered output before delivery.
+
+For Codex UI/app work, combine with `$frontend-design` and `$frontend-responsive-ui` when responsive implementation matters.
+
+## Anti AI Slop
+
+Avoid generic visual averages unless the brand itself uses them:
+
+- purple AI gradients as default tech style
+- emoji-as-icons for serious/product work
+- rounded cards with colored left borders as the main design language
+- fake SVG/CSS product silhouettes instead of real product imagery
+- generic Inter/Roboto/Arial/system display type without a reason
+- random metrics, icons, or "dashboard" furniture that do not carry meaning
+
+Positive moves:
+
+- start from existing context: brand, screenshot, product, audience, medium
+- use one clear design thesis
+- make typography carry identity
+- use real assets when recognition matters
+- keep a stable palette in CSS variables/spec notes
+- make density match the artifact: deck != dashboard != app prototype
+
+## Artifact-Specific Checks
+
+Prototype:
+- Decide overview-board vs clickable flow.
+- If clickable, test key paths and console errors.
+- Use real screen states, not explanatory marketing text.
+
+Slide deck:
+- One slide, one job.
+- Do not use webpage cards as slide grammar.
+- Export/render and inspect text fit.
+
+Infographic:
+- Use editorial hierarchy, data labels, source notes, and print-safe spacing.
+- Do not fake data for decoration.
+
+Animation/motion:
+- Build a timeline plan before implementation.
+- Prefer clear stages, easing, and readable keyframes over random movement.
+- Export/check frames or rendered video/GIF when possible.
+
+Critique:
+- Score or comment on philosophy fit, hierarchy, craft, function, novelty.
+- Return Keep / Fix / Quick Wins.
+
+## Upstream References
+
+If deeper source-specific guidance is needed, inspect the local research clone:
+`runtime/research/huashu-design-src/`.
+
+Useful upstream files:
+- `SKILL.md` — full workflow and rules
+- `references/design-styles.md` — design direction library
+- `references/slide-decks.md` — slide deck patterns
+- `references/editable-pptx.md` — HTML-to-PPTX approach
+- `references/critique-guide.md` — design review
+- `references/verification.md` — QA checks
