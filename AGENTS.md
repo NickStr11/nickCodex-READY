@@ -48,7 +48,9 @@
 - `code_review.md` — если задача про review, audit или PR review automation
 - `rules/code-style.md` — если задача техническая и нужны правила по качеству и виду кода
 - `rules/subagents.md` — если задача про delegation, parallel agents или model routing
+- `rules/research-verification.md` — если задача про внешний repo, свежие факты, числа, source-backed claims или сравнения
 - `knowledge/*` — только когда реально нужен долговечный и переиспользуемый ресёрч-контекст
+- `knowledge/learned-the-hard-way.md` — если задача похожа на повторяющийся симптом/сбой и нужен recipe lookup
 - `runtime/*` — только если нужны сырые импорты, временные файлы, выгрузки или scratch-артефакты
 
 ## Карта проекта

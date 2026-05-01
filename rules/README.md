@@ -6,5 +6,6 @@
 - `work-style.md` — как работать по шагам и держать темп
 - `code-style.md` — как должен выглядеть код и границы по правкам
 - `subagents.md` — когда и как использовать Codex subagents
+- `research-verification.md` — как помечать verified/unverified/inferred claims
 
 Это не knowledge-слой и не память проекта. Если меняешь правила, меняешь сам контракт работы.

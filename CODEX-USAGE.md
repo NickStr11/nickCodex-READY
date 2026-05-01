@@ -23,6 +23,7 @@ Codex должен прочитать `AGENTS.md`, базовые правила
 Никита не должен руками помнить служебные команды. Codex сам запускает нужный read-only helper, когда задача подходит:
 
 - если пользователь ссылается на прошлые сессии, diary, handoff, “мы уже делали”, “помнишь”, “найди где” — запустить `scripts/search-session-notes.ps1` с подходящим `-Query`;
+- если задача выглядит как повторяющийся симптом/сбой — сначала проверить `knowledge/learned-the-hard-way.md` по ключевым словам;
 - если работа касается внешнего repo/research — использовать `runtime/research/RECON-TEMPLATE.md` и сохранить заметку в `runtime/research/`;
 - если менялись структура, docs, scripts, context layers или reusable workflow — запустить `scripts/validate-context-pack.ps1`;
 - если задача про чистку/качество context pack, skills, broken refs или локальные абсолютные пути — запустить `scripts/scan-context-pack-health.ps1`;
