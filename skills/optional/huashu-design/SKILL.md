@@ -56,10 +56,11 @@ Do not pretend there is one objectively correct style.
 Default workflow:
 
 1. State assumptions and missing assets briefly.
-2. Create a rough but visible first pass early.
-3. Prefer 3+ variations over one "final answer" when visual direction is uncertain.
-4. Iterate from user feedback.
-5. Verify in browser/rendered output before delivery.
+2. Write a short aesthetic hypothesis before layout: direction, why it fits, and 2-3 planned hierarchy/asymmetry moves.
+3. Create a rough but visible first pass early.
+4. Prefer 3+ variations over one "final answer" when visual direction is uncertain.
+5. Iterate from user feedback.
+6. Verify in browser/rendered output before delivery.
 
 For Codex UI/app work, combine with `$frontend-design` and `$frontend-responsive-ui` when responsive implementation matters.
 
@@ -82,6 +83,17 @@ Positive moves:
 - use real assets when recognition matters
 - keep a stable palette in CSS variables/spec notes
 - make density match the artifact: deck != dashboard != app prototype
+
+## Render QA Gates
+
+For any generated HTML, PDF, deck, infographic, or visual artifact:
+
+1. Render the artifact before delivery. For HTML/PDF, print or screenshot the actual output and inspect it.
+2. Save a contact sheet or key screenshots near the runtime output when practical.
+3. Check page 1 first: no title overlap, no decorative sticker crossing content, no orphaned visual blocks.
+4. If there are 4+ equal cards in a symmetric grid, treat it as a design smell. Rebuild as asymmetric hierarchy, dominant + sidekick, table, timeline, or editorial layout.
+5. Audit font stack. Generic fallback stacks such as Arial/Inter/Georgia/Consolas are allowed only with a reason; otherwise choose a more intentional local or loaded type system.
+6. Avoid evenly distributed soft accent colors. Prefer one dominant surface and one sharp accent, with secondary colors used sparingly.
 
 ## Artifact-Specific Checks
 
