@@ -101,12 +101,16 @@ Use for technical briefs, personal setup explainers, infra reports, and PDF hand
 
 - Use print-first A4 HTML and export with browser print, not ad hoc PDF drawing, when layout quality matters.
 - Start with a strong cover hierarchy: large H1, short lead, one integrated thesis block, no decorative stamp on top of title.
+- For Russian covers, break H1 manually by meaning, not by browser auto-wrap. Prefer semantic lines such as "Как работает" / "мой Codex" / "сетап" over orphaned short words.
 - Keep body text readable on screen: normal copy around 14px or larger, table/card text around 12px or larger, footers only can be smaller.
 - Prefer warm paper + coal text + one sharp accent. Do not distribute four pastel card colors evenly.
 - Use asymmetric information architecture: dominant block + supporting blocks, timeline, table, or dispatch board instead of equal card grids.
 - Decorative elements must attach to a content role. If a rail, stamp, band, or badge can be removed without losing meaning, remove it.
 - For dense technical content, use tables and timelines for comparison/history, not card walls.
-- After any typography size change, rerender page 1 and the densest page; larger text can create new overlaps.
+- In Russian body copy, avoid lonely one-letter prepositions/conjunctions at line ends where practical: use nonbreaking spaces for short glue words in prominent text and check rendered output.
+- For technical inline labels and confidence badges, use non-wrapping spans so markers like `[verified: gh]` do not split across lines.
+- Treat spacing as a system: increase section gaps, grid gaps, and card padding together; do not just enlarge font size.
+- After any typography or spacing change, rerender page 1 and the densest pages; larger text and extra air can create new overlaps.
 
 ## Artifact-Specific Checks
 
