@@ -95,6 +95,19 @@ For any generated HTML, PDF, deck, infographic, or visual artifact:
 5. Audit font stack. Generic fallback stacks such as Arial/Inter/Georgia/Consolas are allowed only with a reason; otherwise choose a more intentional local or loaded type system.
 6. Avoid evenly distributed soft accent colors. Prefer one dominant surface and one sharp accent, with secondary colors used sparingly.
 
+## A4 Editorial PDF Pattern
+
+Use for technical briefs, personal setup explainers, infra reports, and PDF handoffs like "explain this setup to Arthur".
+
+- Use print-first A4 HTML and export with browser print, not ad hoc PDF drawing, when layout quality matters.
+- Start with a strong cover hierarchy: large H1, short lead, one integrated thesis block, no decorative stamp on top of title.
+- Keep body text readable on screen: normal copy around 14px or larger, table/card text around 12px or larger, footers only can be smaller.
+- Prefer warm paper + coal text + one sharp accent. Do not distribute four pastel card colors evenly.
+- Use asymmetric information architecture: dominant block + supporting blocks, timeline, table, or dispatch board instead of equal card grids.
+- Decorative elements must attach to a content role. If a rail, stamp, band, or badge can be removed without losing meaning, remove it.
+- For dense technical content, use tables and timelines for comparison/history, not card walls.
+- After any typography size change, rerender page 1 and the densest page; larger text can create new overlaps.
+
 ## Artifact-Specific Checks
 
 Prototype:
