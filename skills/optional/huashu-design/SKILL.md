@@ -110,6 +110,8 @@ Use for technical briefs, personal setup explainers, infra reports, and PDF hand
 - In Russian body copy, avoid lonely one-letter prepositions/conjunctions at line ends where practical: use nonbreaking spaces for short glue words in prominent text and check rendered output.
 - For technical inline labels and confidence badges, use non-wrapping spans so markers like `[verified: gh]` do not split across lines.
 - Treat spacing as a system: increase section gaps, grid gaps, and card padding together; do not just enlarge font size.
+- For process/pipeline blocks, avoid bare numbers floating above text. Use semantic stage labels, one primary action, and one muted explanation line.
+- For thesis/quote callouts in technical PDFs, avoid oversized plain text between two horizontal rules. Prefer a labeled callout with one strong side accent, restrained body size, and enough padding.
 - After any typography or spacing change, rerender page 1 and the densest pages; larger text and extra air can create new overlaps.
 
 ## Artifact-Specific Checks
