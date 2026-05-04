@@ -21,6 +21,11 @@ description: "Maintain and evolve portable agent context packs built around AGEN
 - Add a local `AGENTS.md` only when a subtree has rules that differ from the root.
 - Keep deep context files out of the hot path unless the task truly needs them.
 - If a document is for humans, keep agent-only workflow instructions out of it.
+- For broad migrations or repeated edits across many files, work in reviewable batches:
+  define the transform, measure the blast radius with `rg`, keep a small `done.list`
+  or checklist, validate after each batch, and avoid mixing unrelated changes in one pass.
+- Prefer dry-run/preview-first behavior for migration scripts and cutover helpers.
+  Show what would change before applying broad edits.
 
 ## Repo-Specific Check
 

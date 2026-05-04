@@ -28,6 +28,9 @@ Use this skill when:
    who calls the API, who reads or writes shared files, what machines or services depend on paths, env vars, formats, queues, webhooks, or DB tables.
 8. Tie the user request to the thinnest slice that matters now and start there instead of reading the whole repo.
 9. If the recon is substantial, leave a compressed note in `runtime/research/` using `references/recon-checklist.md` as the shape.
+10. For external skill/template repos, do not recommend installing a large bundle by default.
+    First separate reusable workflow patterns from vendor-specific automation, auth
+    assumptions, and one-off task wrappers.
 
 ## Output Rules
 
@@ -39,6 +42,8 @@ Use this skill when:
 - If the target is a GitHub repo, combine with `read-github` when it saves time.
 - If fresh library docs matter, combine with `context7`.
 - If the user asked for a review, keep review findings first after the recon pass.
+- For skill catalogs, classify findings as: install now, adapt pattern only,
+  study deeper, or reject as context/vendor sprawl.
 
 ## Reference
 
